@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <title>PhotographItem-Responsive Theme | Blog</title>
-
-    <!-- Bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.min.css">
-    <!-- Bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
-    <!-- Font Awesome icons -->
-    <link rel="stylesheet" type="text/css" href="/public/font-awesome/css/font-awesome.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body id="page-top">
+<?php
+require_once __DIR__ . '/../inicio.part.php';
+?>
 
 <!-- Navigation Bar -->
 <?php
@@ -39,7 +19,7 @@
              <div class="post">
                <div class="post-heading">
                  <span>6 JANUARY</span>
-                 <img class="img-responsive" src="images/blog/landscape.jpg" alt="post's picture">
+                 <img class="img-responsive" src="/public/images/blog/landscape.jpg" alt="post's picture">
                </div>
                <div class="post-body">
                  <h3><a href="single_post.html"><strong>doloremque illum</strong></a></h3>
@@ -176,32 +156,4 @@
 <!-- End of Principal Content Start --> 
 
 <!-- Footer -->
-   <footer>
-     <div class="container text-muted text-center">
-         <ul class="list-inline social-buttons">
-            <li><a href="#"><i class="fa fa-facebook sr-icons"></i></a>
-            </li>
-            <li><a href="#"><i class="fa fa-twitter sr-icons"></i></a>
-            </li>
-            <li><a href="#"><i class="fa fa-google-plus sr-icons"></i></a>
-            </li>
-         </ul>
-         <ul class="list-inline">
-           <li class="footer-number"><i class="fa fa-phone sr-icons"></i>  (00228)92229954 </li>
-           <li><i class="fa fa-envelope sr-icons"></i>  kouvenceslas93@gmail.com</li>
-         </ul>
-         <p>Photography Fanatic Template &copy; 2017</p>
-     </div>
-   </footer>
-
-<!-- Jquery -->
-   <script type="text/javascript" src="js/jquery.min.js"></script>
-   <!-- Bootstrap core Javascript -->
-   <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-   <!-- Plugins -->
-   <script type="text/javascript" src="js/jquery.easing.min.js"></script>
-   <script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
-   <script type="text/javascript" src="js/scrollreveal.min.js"></script>
-   <script type="text/javascript" src="js/script.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . "/../fin.part.php" ?>
