@@ -31,6 +31,7 @@
     const RUTA_IMAGENES_PORTFOLIO = '/public/images/index/portfolio/';
     const RUTA_IMAGENES_GALERIA = '/public/images/index/gallery/';
     const RUTA_IMAGENES_CLIENTES = '/public/images/clients/';
+    const RUTA_IMAGENES_SUBIDAS = __DIR__ . "/../../public/images/galeria/";
 
     public function __construct($nombre,  $descripcion,  $categoria,  $numVisualizaciones= 0,  $numLikes= 0,  $numDownloads = 0) {
         $this->nombre = $nombre;
@@ -163,6 +164,9 @@
         return $this::RUTA_IMAGENES_CLIENTES . $this->getNombre();
     }
 	
+    function getUrlGalerias() {
+        return $this::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
+    }
 }
 
 ?>
