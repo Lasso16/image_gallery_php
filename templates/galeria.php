@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../src/utils/File.class.php';
 require_once __DIR__ . '/../src/exceptions/FileException.class.php';
-require_once __DIR__ . '/../src/utils/Imagen.class.php';
+require_once __DIR__ . '/../src/entity/Imagen.class.php';
 
 $errores = [];
 $titulo = "";
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titulo = trim(htmlspecialchars($_POST['titulo']));
         $descripcion = trim(htmlspecialchars($_POST['descripcion']));
         $tiposAceptados = ['image/jpeg', 'image/gif', 'image/png'];
-        $imagen = new File('imagen', $tiposAceptados);
+        $imagen = new File('imagen', arrTypes: $tiposAceptados);
         $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
         $mensaje = "Datos enviados";
         } catch (FileException $fileException) {
