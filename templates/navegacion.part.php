@@ -29,6 +29,12 @@
         <?php if (Utils::esOpcionMenuActiva('/contact.php')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
           <a href="/templates/contact.php">Contact</a></li>
+          <?php if (Utils::esOpcionMenuActiva('/galeria.php')) 
+          echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
+          <a href="/templates/galeria.php">Gallery</a></li>
+          <?php if (Utils::esOpcionMenuActiva('/Asociados.php')) 
+          echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
+          <a href="/templates/Asociados.php">Asociados</a></li>
             </ul>
         </div>
     </div>
