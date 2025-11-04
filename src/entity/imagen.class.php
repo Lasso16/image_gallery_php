@@ -1,4 +1,7 @@
-<?php class Imagen
+<?php
+require_once __DIR__ . '/IEntity.interface.php';
+
+class Imagen implements IEntity
 {
     /**
      * @var string
@@ -188,5 +191,17 @@
     function getUrlGalerias()
     {
         return self::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
+    }
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nombre' => $this->getNombre(),
+            'descripcion' => $this->getDescripcion(),
+            'numVisualizaciones' => $this->getNumVisualizaciones(),
+            'numLikes' => $this->getNumLikes(),
+            'numDownloads' => $this->getNumDownloads(),
+            'categoria' => $this->getCategoria()
+        ];
     }
 }

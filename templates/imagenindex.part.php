@@ -1,4 +1,3 @@
-
 <div id="<?= "category" . $idCategoria?>" class="tab-pane <?= $idCategoria === 1 ? 'active' : '' ?>">
     <div class="row popup-gallery">
         

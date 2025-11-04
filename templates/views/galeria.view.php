@@ -74,7 +74,7 @@ require_once __DIR__ . '/../navegacion.part.php';
                             <tr>
                                 <th scope="row"><?= $imagen->getNombre() ?></th>
                                 <td>
-                                    <img src="<?= $imagen->getUrlImagenes() ?>"
+                                <img src="<?= $imagen->getUrlGaleria() ?>"
                                         alt="<?= $imagen->getDescripcion() ?>"
                                         title="<?= $imagen->getDescripcion() ?>"
                                         width="100px">
