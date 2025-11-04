@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2025 a las 15:20:35
+-- Tiempo de generación: 04-11-2025 a las 18:22:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `asociados` (
   `id` int(11) NOT NULL,
-  `nombre` int(100) NOT NULL,
-  `logo` int(100) NOT NULL,
-  `descripcion` int(11) NOT NULL
+  `nombre` varchar(100) NOT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -50,9 +50,9 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`) VALUES
-(1, 'categoria I'),
-(2, 'categoria II'),
-(3, 'categoria III');
+(1, 'Categoría I'),
+(2, 'Categoría II'),
+(3, 'Categoría III');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ ALTER TABLE `categorias`
 --
 ALTER TABLE `imagenes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_categoria` (`categoria`);
+  ADD KEY `categoria` (`categoria`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -123,7 +123,6 @@ ALTER TABLE `imagenes`
 -- Filtros para la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  ADD CONSTRAINT `fk_categoria` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`id`),
   ADD CONSTRAINT `imagenes_ibfk_1` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`id`);
 COMMIT;
 
