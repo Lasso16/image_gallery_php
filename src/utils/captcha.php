@@ -8,7 +8,7 @@ $captchaFont = "CartoonBlocks.ttf";
 $captchaFontSize = rand(30, 40); // Tamaño de la fuente
 $caracter = 0;
 while ($caracter < $totalCharacteres) {
-    $captcha .= substr($possiblesLetras, rand(0, strlen($possiblesLetras) - 1), 1); // Se extrae 1 letra de $possiblesLetras de la posición aleatoria según el tamaño de la variable.
+    $captcha .= substr($possiblesLetras, rand(0, strlen($possiblesLetras) - 1), 1);
     $caracter++;
 }
 $text_box = imagettfbbox($captchaFontSize, 0, $captchaFont, $captcha);
@@ -33,4 +33,4 @@ for ($contadorLineas = 0; $contadorLineas < $randomLineas; $contadorLineas++) {
 imagettftext($imagen, $captchaFontSize, 0, 4, $alto, $colorNegro, $captchaFont, $captcha);
 imagepng($imagen);
 imagedestroy($imagen);
-$_SESSION['captchaGenerado'] = $captcha; // Guardamos el captcha generado en una variable de sesión
+$_SESSION['captchaGenerado'] = $captcha;

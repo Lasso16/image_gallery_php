@@ -1,31 +1,29 @@
-<?php class Imagen {
-    /**
-    *@var int
-    */
+<?php class Imagen
+{
     private $id;
     /**
-    *@var string
-    */
+     *@var string
+     */
     private $nombre;
     /**
-    *@var string
-    */
+     *@var string
+     */
     private $descripcion;
     /**
-    *@var string
-    */
+     *@var string
+     */
     private $categoria;
     /**
-    *@var int
-    */
+     *@var int
+     */
     private $numVisualizaciones;
     /**
-    *@var int
-    */
+     *@var int
+     */
     private $numLikes;
     /**
-    *@var int
-    */
+     *@var int
+     */
     private $numDownloads;
 
     const RUTA_IMAGENES_PORTFOLIO = '/public/images/index/portfolio/';
@@ -33,20 +31,23 @@
     const RUTA_IMAGENES_CLIENTES = '/public/images/clients/';
     const RUTA_IMAGENES_SUBIDAS = __DIR__ . "/../../public/images/galeria/";
 
-    public function __construct($nombre,  $descripcion,  $categoria,  $numVisualizaciones= 0,  $numLikes= 0,  $numDownloads = 0) {
-        $this->nombre = $nombre;
-        $this->descripcion = $descripcion;
-        $this->categoria = $categoria;
-        $this->numVisualizaciones = $numVisualizaciones;
-        $this->numLikes = $numLikes;
-        $this->numDownloads = $numDownloads;
+    public function __construct($nombre,  $descripcion,  $categoria,  $numVisualizaciones = 0,  $numLikes = 0,  $numDownloads = 0)
+    {
+        $this->id = null;
+        $this->nombre = "";
+        $this->descripcion = "";
+        $this->categoria = 1;
+        $this->numVisualizaciones = 0;
+        $this->numLikes = 0;
+        $this->numDownloads = 0;
     }
 
     /**
      * Summary of getId
      * @return int
      */
-    public function getId(): int {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -54,7 +55,8 @@
      * Summary of getNombre
      * @return string
      */
-	public function getNombre(): string {
+    public function getNombre(): string
+    {
         return $this->nombre;
     }
 
@@ -62,35 +64,40 @@
      * Summary of getDescripcion
      * @return string
      */
-	public function getDescripcion(): string{
+    public function getDescripcion(): string
+    {
         return $this->descripcion;
     }
     /**
      * Summary of getCategoria
      * @return string
      */
-	public function getCategoria(): string {
+    public function getCategoria(): string
+    {
         return $this->categoria;
     }
     /**
      * Summary of getNumVisualizaciones
      * @return int
      */
-	public function getNumVisualizaciones(): int {
+    public function getNumVisualizaciones(): int
+    {
         return $this->numVisualizaciones;
     }
     /**
      * Summary of getNumLikes
      * @return int
      */
-	public function getNumLikes(): int {
+    public function getNumLikes(): int
+    {
         return $this->numLikes;
     }
     /**
      * Summary of getNumDownloads
      * @return int
      */
-	public function getNumDownloads(): int {
+    public function getNumDownloads(): int
+    {
         return $this->numDownloads;
     }
     /**
@@ -98,7 +105,8 @@
      * @param mixed $nombre
      * @return Imagen
      */
-    public function setNombre( $nombre): Imagen {
+    public function setNombre($nombre): Imagen
+    {
         $this->nombre = $nombre;
         return $this;
     }
@@ -107,7 +115,8 @@
      * @param mixed $descripcion
      * @return Imagen
      */
-	public function setDescripcion( $descripcion): Imagen {
+    public function setDescripcion($descripcion): Imagen
+    {
         $this->descripcion = $descripcion;
         return $this;
     }
@@ -116,7 +125,8 @@
      * @param mixed $categoria
      * @return Imagen
      */
-	public function setCategoria( $categoria): Imagen {
+    public function setCategoria($categoria): Imagen
+    {
         $this->categoria = $categoria;
         return $this;
     }
@@ -125,7 +135,8 @@
      * @param mixed $numVisualizaciones
      * @return Imagen
      */
-	public function setNumVisualizaciones( $numVisualizaciones): Imagen {
+    public function setNumVisualizaciones($numVisualizaciones): Imagen
+    {
         $this->numVisualizaciones = $numVisualizaciones;
         return $this;
     }
@@ -134,7 +145,8 @@
      * @param mixed $numLikes
      * @return Imagen
      */
-	public function setNumLikes( $numLikes): Imagen {
+    public function setNumLikes($numLikes): Imagen
+    {
         $this->numLikes = $numLikes;
         return $this;
     }
@@ -143,30 +155,34 @@
      * @param mixed $numDownloads
      * @return Imagen
      */
-	public function setNumDownloads( $numDownloads): Imagen {
+    public function setNumDownloads($numDownloads): Imagen
+    {
         $this->numDownloads = $numDownloads;
         return $this;
     }
 
-    function __tostring() {
+    function __tostring()
+    {
         return $this->descripcion;
     }
-	
 
-    function getUrlPortfolio() {
+
+    function getUrlPortfolio()
+    {
         return self::RUTA_IMAGENES_PORTFOLIO . $this->getNombre();
     }
-	
-    function getUrlGaleria() {
+
+    function getUrlGaleria()
+    {
         return self::RUTA_IMAGENES_GALERIA . $this->getNombre();
     }
-    function getUrlClientes() {
+    function getUrlClientes()
+    {
         return self::RUTA_IMAGENES_CLIENTES . $this->getNombre();
     }
-	
-    function getUrlGalerias() {
+
+    function getUrlGalerias()
+    {
         return self::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
     }
 }
-
-?>
