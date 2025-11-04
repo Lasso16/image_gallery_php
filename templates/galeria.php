@@ -4,19 +4,15 @@ require_once __DIR__ . '/../src/exceptions/FileException.class.php';
 require_once __DIR__ . '/../src/entity/Imagen.class.php';
 
 $errores = [];
-$titulo = "";
-$descripcion = "";
-$mensaje = "";
-$imagen;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    try {
-        $titulo = trim(htmlspecialchars($_POST['titulo']));
+$descripcion = '';
+$mensaje = '';
+try {
+    $conexion = Connection::make();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $descripcion = trim(htmlspecialchars($_POST['descripcion']));
         $tiposAceptados = ['image/jpeg', 'image/gif', 'image/png'];
-        $imagen = new File('imagen', arrTypes: $tiposAceptados);
+        $imagen = new File('imagen', $tiposAceptados); // El nombre 'imagen' es el que se ha puesto en el formulario de galeria.view.php
         $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
-        $conexion = Connection::make();
         $sql = "INSERT INTO imagenes (nombre, descripcion, categoria) VALUES (:nombre,:descripcion,:categoria)";
         $pdoStatement = $conexion->prepare($sql);
         $parametros = [
@@ -26,19 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         if ($pdoStatement->execute($parametros) === false)
             $errores[] = "No se ha podido guardar la imagen en la base de datos";
-        else {
-            $descripcion = "";
+        else
             $mensaje = "Se ha guardado la imagen correctamente";
-        }
-    } catch (FileException $fileException) {
-        $errores[] = $fileException->getMessage();
     }
-} else {
-    $errores = [];
-    $titulo = "";
-    $descripcion = "";
-    $mensaje = "";
+    $queryBuilder = new QueryBuilder($conexion);
+    $imagenes = $queryBuilder->findAll('imagenes', 'Imagen');
+} catch (FileException $fileException) {
+    $errores[] = $fileException->getMessage();
+} catch (QueryException $queryException) {
+    $errores[] = $fileException->getMessage();
 }
-
-
-require_once __DIR__ . '/views/galeria.view.php';
+require_once 'views/galeria.view.php';

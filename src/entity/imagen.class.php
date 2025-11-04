@@ -1,6 +1,10 @@
 <?php class Imagen
 {
+    /**
+     * @var string
+     */
     private $id;
+
     /**
      *@var string
      */
@@ -31,7 +35,7 @@
     const RUTA_IMAGENES_CLIENTES = '/public/images/clients/';
     const RUTA_IMAGENES_SUBIDAS = __DIR__ . "/../../public/images/galeria/";
 
-    public function __construct($nombre,  $descripcion,  $categoria,  $numVisualizaciones = 0,  $numLikes = 0,  $numDownloads = 0)
+    public function __construct()
     {
         $this->id = null;
         $this->nombre = "";
