@@ -1,4 +1,3 @@
-
 <?php foreach($imagenesClientes as $i):?>
            <div class="col-xs-12 col-sm-3">
              <img class="img-responsive" src="<?=$i->getUrlClientes()?>" alt="client's picture">

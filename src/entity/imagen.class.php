@@ -154,18 +154,18 @@
 	
 
     function getUrlPortfolio() {
-        return $this::RUTA_IMAGENES_PORTFOLIO . $this->getNombre();
+        return self::RUTA_IMAGENES_PORTFOLIO . $this->getNombre();
     }
 	
     function getUrlGaleria() {
-        return $this::RUTA_IMAGENES_GALERIA . $this->getNombre();
+        return self::RUTA_IMAGENES_GALERIA . $this->getNombre();
     }
     function getUrlClientes() {
-        return $this::RUTA_IMAGENES_CLIENTES . $this->getNombre();
+        return self::RUTA_IMAGENES_CLIENTES . $this->getNombre();
     }
 	
     function getUrlGalerias() {
-        return $this::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
+        return self::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
     }
 }
 
