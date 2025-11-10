@@ -40,6 +40,3 @@ class App
         return static::$container['connection'];
     }
 }
-$cfg = require __DIR__ . '/../app/config.php';
-
-App::bind('config', require __DIR__ . '/../app/config.php');

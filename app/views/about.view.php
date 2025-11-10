@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../inicio.part.php';
+require_once __DIR__ . '/../controllers/inicio.part.php';
 ?>
 
 
 <!-- Navigation Bar -->
 <?php
-  require_once __DIR__ . '/../navegacion.part.php';
+  require_once __DIR__ . '/../controllers/navegacion.part.php';
 ?>
 <!-- End of Navigation Bar -->
 
@@ -127,7 +127,7 @@ require_once __DIR__ . '/../inicio.part.php';
         <div class="row feedback text-center">
            <h3>CLIENTS FEEDBACK</h3>
            <hr>
-           <?php require_once __DIR__ . "/../imagencliente.part.php"?>
+           <?php require_once __DIR__ . "/../controllers/imagencliente.part.php"?>
            
       <!-- End of Clients Feedback --> 
        
@@ -137,4 +137,4 @@ require_once __DIR__ . '/../inicio.part.php';
 <!-- End of principal content -->
 
    <!-- Footer -->
-   <?php require_once __DIR__ . "/../fin.part.php" ?>
+   <?php require_once __DIR__ . "/../controllers/fin.part.php" ?>

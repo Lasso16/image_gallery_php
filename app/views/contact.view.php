@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../inicio.part.php';
+require_once __DIR__ . '/../controllers/inicio.part.php';
 ?>
 
 
 <!-- Navigation Bar -->
 <?php
-require_once __DIR__ . '/../navegacion.part.php';
+require_once __DIR__ . '/../controllers/navegacion.part.php';
 ?>
 <!-- End of Navigation Bar -->
 
@@ -73,4 +73,4 @@ require_once __DIR__ . '/../navegacion.part.php';
 </div>
 <!-- Principal Content Start -->
 
-<?php require_once __DIR__ . "/../fin.part.php" ?>
+<?php require_once __DIR__ . "/../controllers/fin.part.php" ?>

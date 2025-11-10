@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../src/utils/utils.class.php';?>
+<?php require_once __DIR__ . '/../../src/utils/utils.class.php';?>
 <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container">
         <div class="navbar-header">
@@ -16,25 +16,25 @@
             <ul class="nav navbar-nav">
             <?php if (Utils::esOpcionMenuActiva('/index.php') || Utils::esOpcionMenuActiva('/')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/templates/index.php"><i class="fa fa-home sr-icons"></i> Home</a></li>
+          <a href="/"><i class="fa fa-home sr-icons"></i> Home</a>
 
-        <?php if (Utils::esOpcionMenuActiva('/about.php')) 
+        <?php if (Utils::esOpcionMenuActiva('/about')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/templates/about.php">About</a></li>
+          <a href="/about">About</a></li>
 
-        <?php if (Utils::esOpcionMenuActiva('/blog.php')) 
+        <?php if (Utils::esOpcionMenuActiva('/blog')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/templates/blog.php">Blog</a></li>
+          <a href="/blog">Blog</a></li>
 
-        <?php if (Utils::esOpcionMenuActiva('/contact.php')) 
+        <?php if (Utils::esOpcionMenuActiva('/contact')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/templates/contact.php">Contact</a></li>
-          <?php if (Utils::esOpcionMenuActiva('/galeria.php')) 
+          <a href="/contact">Contact</a></li>
+          <?php if (Utils::esOpcionMenuActiva('/galeria')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/templates/galeria.php">Gallery</a></li>
-          <?php if (Utils::esOpcionMenuActiva('/Asociados.php')) 
+          <a href="/galeria">Gallery</a></li>
+          <?php if (Utils::esOpcionMenuActiva('/asociados')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/templates/Asociados.php">Asociados</a></li>
+          <a href="/asociados">Asociados</a></li>
             </ul>
         </div>
     </div>

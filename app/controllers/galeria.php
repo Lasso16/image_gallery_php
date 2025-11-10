@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../core/App.php';
-require_once __DIR__ . '/../src/utils/File.class.php';
-require_once __DIR__ . '/../src/entity/Imagen.class.php';
-require_once __DIR__ . '/../repository/ImagenRepository.php';
-require_once __DIR__ . '/../repository/CategoriaRepository.php';
+require_once __DIR__ . '/../../core/App.php';
+require_once __DIR__ . '/../../src/utils/File.class.php';
+require_once __DIR__ . '/../../src/entity/Imagen.class.php';
+require_once __DIR__ . '/../../repository/ImagenRepository.php';
+require_once __DIR__ . '/../../repository/CategoriaRepository.php';
 
 
 $errores = [];
@@ -11,7 +11,7 @@ $titulo = "";
 $descripcion = "";
 $mensaje = "";
 try {
-    $config = require_once __DIR__ . '/../app/config.php';
+    $config = require_once __DIR__ . '/../config.php';
     $conexion = App::getConnection();
     $imagenesRepository = new ImagenRepository();
     $imagenes = $imagenesRepository->findAll();
@@ -42,4 +42,4 @@ try {
 } catch (AppException $appException) {
     $errores[] = $appException->getMessage();
 }
-require_once __DIR__ . '/views/galeria.view.php';
+require_once __DIR__ . '/../views/galeria.view.php';

@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../inicio.part.php';
+require_once __DIR__ . '/../controllers/inicio.part.php';
 ?>
 
 
 <!-- Navigation Bar -->
 <?php
-  require_once __DIR__ . '/../navegacion.part.php';
+  require_once __DIR__ . '/../controllers/navegacion.part.php';
 ?>
 <!-- End of Navigation Bar -->
 
@@ -50,7 +50,7 @@ require_once __DIR__ . '/../inicio.part.php';
                 <?php
                   $idCategoria = 1;
                   shuffle($imagenesIndex);
-                  require __DIR__ . "/../imagenindex.part.php";
+                  require __DIR__ . "/../controllers/imagenindex.part.php";
                 ?>
               
         <!-- End of First category pictures -->
@@ -60,7 +60,7 @@ require_once __DIR__ . '/../inicio.part.php';
              <?php
                   $idCategoria = 2;
                   shuffle($imagenesIndex);
-                  require __DIR__ . "/../imagenindex.part.php";
+                  require __DIR__ . "/../controllers/imagenindex.part.php";
                 ?>
             
     
@@ -71,7 +71,7 @@ require_once __DIR__ . '/../inicio.part.php';
              <?php
                   $idCategoria = 3;
                   shuffle($imagenesIndex);
-                  require __DIR__ . "/../imagenindex.part.php";
+                  require __DIR__ . "/../controllers/imagenindex.part.php";
                 ?> 
             
               
@@ -103,4 +103,4 @@ require_once __DIR__ . '/../inicio.part.php';
    </div><!-- End of index box -->
 
    <!-- Footer -->
-<?php require_once __DIR__ . "/../fin.part.php" ?>
+<?php require_once __DIR__ . "/../controllers/fin.part.php" ?>

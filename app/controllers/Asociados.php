@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../core/app.php';
-require_once __DIR__ . "/../src/utils/File.class.php";
-require_once __DIR__ . "/../src/entity/Asociado.class.php";
-require_once __DIR__ . "/../repository/AsociadosRepository.php";
+require_once __DIR__ . '/../../core/app.php';
+require_once __DIR__ . "/../../src/utils/File.class.php";
+require_once __DIR__ . "/../../src/entity/Asociado.class.php";
+require_once __DIR__ . "/../../repository/AsociadosRepository.php";
 
 $errores = [];
 $mensaje = "";
@@ -57,4 +57,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $repo = new AsociadosRepository();
 $asociadosIndex = $repo->findAll();
 
-require_once __DIR__ . "/views/asociados.view.php";
+require_once __DIR__ . "/../views/asociados.view.php";
