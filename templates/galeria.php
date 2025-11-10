@@ -29,7 +29,7 @@ try {
         $imagen = new File('imagen', $tiposAceptados);
         $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
         $imagenGaleria = new Imagen($imagen->getFileName(),$descripcion, $categoria);
-        $imagenesRepository->save($imagenGaleria);
+        $imagenesRepository->guarda($imagenGaleria);
         $mensaje = "Se ha guardado la imagen correctamente";
         $imagenes = $imagenesRepository->findAll();
     }
@@ -38,7 +38,7 @@ try {
 } catch (CategoriaException) {
     $errores[] = "No se ha seleccionado una categoría válida";
 } catch (QueryException $queryException) {
-    $errores[] = $fileException->getMessage();
+    $errores[] = $queryException->getMessage();
 } catch (AppException $appException) {
     $errores[] = $appException->getMessage();
 }

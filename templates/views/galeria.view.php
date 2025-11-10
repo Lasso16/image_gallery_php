@@ -79,7 +79,7 @@ require_once __DIR__ . '/../navegacion.part.php';
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($imagenes as $imagen) : ?>
+                <?php foreach (($imagenes ?? []) as $imagen) : ?>
                     <tr>
                         <th scope="row"><?= $imagen->getNombre() ?></th>
                         <td>
