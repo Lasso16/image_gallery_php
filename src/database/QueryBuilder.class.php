@@ -15,15 +15,7 @@ abstract class QueryBuilder
         $this->connection = App::getConnection();
         $this->table = $table;
         $this->classEntity = $classEntity;
-    }/* Función que le pasamos el nombre de la tabla y el nombre
-de la clase a la cual queremos convertir los datos extraidos
-de la tabla.
-La función devolverá un array de objetos de la clase classEntity. */
-    /**
-     * @param string $tabla
-     * @param string $classEntity
-     * @return array
-     */
+    }
     public function findAll(): array
     {
         $sql = "SELECT * FROM $this->table";
@@ -33,6 +25,11 @@ La función devolverá un array de objetos de la clase classEntity. */
         return $pdoStatement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $this->classEntity);
     }
 
+    /**
+     * @param IEntity $entity
+     * @return void
+     * @throws QueryException
+     */
     /**
      * @param IEntity $entity
      * @return void

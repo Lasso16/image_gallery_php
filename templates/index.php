@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../src/entity/imagen.class.php';
 require_once __DIR__ . '/../src/entity/Asociado.class.php';
-require_once __DIR__ . '/../repository/ImagenesRepository.php';
+require_once __DIR__ . '/../repository/ImagenRepository.php';
 require_once __DIR__ . '/../repository/AsociadosRepository.php';
 
 $repoImagen = new ImagenRepository();

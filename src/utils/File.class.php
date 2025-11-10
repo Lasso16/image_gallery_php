@@ -48,15 +48,13 @@ class File
      */
     public function saveUploadFile(string $rutaDestino)
     {
-        // Primero hay que comprobar que el fichero se ha subido desde el formulario.
-        // Hay un tipo de ataques que intenta acceder a archivos del SO
+    
         if (is_uploaded_file($this->file['tmp_name']) === false)
             throw new FileException('El archivo no ha sido subido mediante un formulario.');
         $this->fileName = $this->file['name'];
         $ruta = $rutaDestino . $this->fileName;
-        // Comprobamos si ya existe el fichero
+        
         if (is_file($ruta) === true) {
-            // Generamos un nombre aleatorio
             $idUnico = time();
             $this->fileName = $idUnico . "_" . $this->fileName;
             $ruta = $rutaDestino . $this->fileName;

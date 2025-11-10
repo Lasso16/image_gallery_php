@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../src/exceptions/AppException.class.php';
-require_once __DIR__ . "/../src/database/Connection.class.php";
+require_once __DIR__ . '/../src/database/Connection.class.php';
+
 
 
 class App
@@ -39,5 +40,6 @@ class App
         return static::$container['connection'];
     }
 }
+$cfg = require __DIR__ . '/../app/config.php';
 
 App::bind('config', require __DIR__ . '/../app/config.php');

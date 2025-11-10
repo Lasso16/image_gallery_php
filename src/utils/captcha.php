@@ -2,10 +2,10 @@
 header('Content-Type: image/png');
 session_start();
 $captcha = "";
-$totalCharacteres = rand(5, 8); // Longitud máxima del captcha
+$totalCharacteres = rand(5, 8);
 $possiblesLetras = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 $captchaFont = "CartoonBlocks.ttf";
-$captchaFontSize = rand(30, 40); // Tamaño de la fuente
+$captchaFontSize = rand(30, 40);
 $caracter = 0;
 while ($caracter < $totalCharacteres) {
     $captcha .= substr($possiblesLetras, rand(0, strlen($possiblesLetras) - 1), 1);
@@ -24,7 +24,7 @@ $imagen = imagecreatetruecolor($ancho, $alto + 20);
 $colorBlanco = imagecolorallocate($imagen, 255, 255, 255);
 $colorAzul = imagecolorallocate($imagen, 0, 0, 164);
 $colorNegro = imagecolorallocate($imagen, 0, 0, 0);
-// Dibujamos la imagen
+
 imagefill($imagen, 0, 0, $colorBlanco);
 $backgroundColor = imagecolorallocate($imagen, 255, 255, 255);
 for ($contadorLineas = 0; $contadorLineas < $randomLineas; $contadorLineas++) {
