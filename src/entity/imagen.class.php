@@ -33,9 +33,9 @@ class Imagen implements IEntity
      */
     private $numDownloads;
 
-    const RUTA_IMAGENES_PORTFOLIO = '/public/images/index/portfolio/';
-    const RUTA_IMAGENES_GALERIA = '/public/images/index/gallery/';
-    const RUTA_IMAGENES_CLIENTES = '/public/images/clients/';
+    const RUTA_IMAGENES_PORTFOLIO = '/../..//public/images/index/portfolio/';
+    const RUTA_IMAGENES_GALERIA = '/../..//public/images/index/gallery/';
+    const RUTA_IMAGENES_CLIENTES = '/../..//public/images/clients/';
 
     //HE TENIDO QUE CAMBIARLA A ESTA PARA QUE SE PUEDAN VER EN LA TABLA
     const RUTA_IMAGENES_SUBIDAS = __DIR__ . "/../../public/images/index/gallery/";

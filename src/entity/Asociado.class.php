@@ -16,7 +16,8 @@ class Asociado implements IEntity
      *@var string
      */
     private $descripcion;
-    const RUTA_LOGOS_ASOCIADOS = '/public/images/asociados/';
+    const RUTA_LOGOS_ASOCIADOS = __DIR__ . '/../../public/images/asociados/';
+
 
 
     public function __construct()
