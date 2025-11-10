@@ -6,4 +6,9 @@ require_once __DIR__ . '/Router.php';
 require_once __DIR__ . '/../src/exceptions/NotFoundException.class.php';
 
 $config = require_once __DIR__ . '/../app/config.php';
+
+
 App::bind('config', $config);
+
+$router = Router::load('app/routes.php');
+App::bind('router',$router);

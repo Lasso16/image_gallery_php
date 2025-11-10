@@ -39,8 +39,7 @@ require_once __DIR__ . '/../controllers/navegacion.part.php';
             <?php endif; ?>
             <!-- Formulario que permite subir una imagen con su descripción -->
             <!-- Hay que indicar OBLIGATORIAMENTE enctype="multipart/form-data" para enviar ficheros al servidor -->
-            <form clas="form-horizontal" action="<?= $_SERVER['PHP_SELF'] ?>" method="post"
-                enctype="multipart/form-data">
+            <form clas="form-horizontal" action="/galeria/nueva" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="col-xs-12">
                         <label class="label-control">Imagen</label>
