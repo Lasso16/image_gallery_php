@@ -8,4 +8,16 @@ class ImagenRepository extends QueryBuilder
     {
         parent::__construct($table, $classEntity);
     }
+
+    /**
+* @param Imagen $imagenGaleria
+* @return Categoria
+* @throws NotFoundException
+* @throws QueryException
+*/
+public function getCategoria(Imagen $imagenGaleria): Categoria
+{
+$categoriaRepository = new CategoriaRepository();
+return $categoriaRepository->find($imagenGaleria->getCategoria());
+}
 }

@@ -38,15 +38,21 @@ class Imagen implements IEntity
     const RUTA_IMAGENES_CLIENTES = '/public/images/clients/';
     const RUTA_IMAGENES_SUBIDAS = __DIR__ . "/../../public/images/galeria/";
 
-    public function __construct()
-    {
+    public function __construct(
+        string $nombre = "",
+        string $descripcion = "",
+        int $categoria = 1,
+        int $numVisualizaciones = 0,
+        int $numLikes = 0,
+        int $numDownloads = 0
+    ) {
         $this->id = null;
-        $this->nombre = "";
-        $this->descripcion = "";
-        $this->categoria = 1;
-        $this->numVisualizaciones = 0;
-        $this->numLikes = 0;
-        $this->numDownloads = 0;
+        $this->nombre = $nombre;
+        $this->descripcion = $descripcion;
+        $this->categoria = $categoria;
+        $this->numVisualizaciones = $numVisualizaciones;
+        $this->numLikes = $numLikes;
+        $this->numDownloads = $numDownloads;
     }
 
     /**
