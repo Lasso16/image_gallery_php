@@ -16,9 +16,9 @@ $descripcion = "";
 $mensaje = "";
 try {
 $conexion = App::getConnection();
-$imagenesRepository = new ImagenRepository();
+$imagenesRepository = App::getRepository(ImagenRepository::class);
 $categoriasRepository = new CategoriaRepository();
-$imagenes = $imagenesRepository->findAll();
+$imagenes = App::getRepository(ImagenRepository::class)->findAll();
 $categorias = $categoriasRepository->findAll();
 } catch (QueryException $queryException) {
 $errores[] = $fileException->getMessage();

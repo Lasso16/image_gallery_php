@@ -8,20 +8,23 @@ use Monolog\Level;
 class MyLog
 {
     /**
-     * @var \Monolog\Logger
+     * @var Logger
      */
     private $log;
-    private function __construct(string $filename)
+    
+    private $level;
+    private function __construct(string $filename, int $level)
     {
+        $this->level = $level;
         $this->log = new Logger('name');
-        $this->log->pushHandler(new StreamHandler($filename, \Monolog\Level::Info));
+        $this->log->pushHandler(new StreamHandler($filename, $this->level));
     }
-    public static function load(string $filename): MyLog
+    public static function load(string $filename, int $level = Logger::INFO): MyLog
     {
-        return new MyLog($filename);
+        return new MyLog($filename, $level);
     }
     public function add(string $message): void
     {
-        $this->log->info($message);
+        $this->log->log($this->level, $message);
     }
 }

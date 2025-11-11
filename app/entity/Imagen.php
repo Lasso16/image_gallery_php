@@ -62,7 +62,7 @@ class Imagen implements IEntity
      * Summary of getId
      * @return int
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }

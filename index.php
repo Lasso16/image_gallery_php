@@ -1,10 +1,11 @@
 <?php
-
-require_once 'core/bootstrap.php';
+use dwes\core\App;
+use dwes\core\Request;
+use dwes\app\exceptions\NotFoundException;
 
 try {
-    require \dwes\core\Router::load('app/routes.php')
-        ->direct(\dwes\core\Request::uri(), \dwes\core\Request::method());
-} catch (\dwes\app\exceptions\NotFoundException $e) {
+    require_once 'core/bootstrap.php';
+    require App::get('router')->direct(Request::uri(), Request::method());
+} catch (NotFoundException $e) {
     die($e->getMessage());
 }
