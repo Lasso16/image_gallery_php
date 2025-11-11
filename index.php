@@ -1,9 +1,10 @@
 <?php
+
+require_once 'core/bootstrap.php';
+
 try {
-    require_once 'core/bootstrap.php';
-    require Router::load('app/routes.php')->direct(Request::uri(), Request::method());
-    }
-    catch ( NotFoundException $notFoundException)
-    {
-    die($notFoundException->getMessage());
-    }
+    require \dwes\core\Router::load('app/routes.php')
+        ->direct(\dwes\core\Request::uri(), \dwes\core\Request::method());
+} catch (\dwes\app\exceptions\NotFoundException $e) {
+    die($e->getMessage());
+}

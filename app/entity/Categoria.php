@@ -1,5 +1,5 @@
 <?php
-
+namespace dwes\app\entity;
 class Categoria implements IEntity
 {
     /**

@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../../src/utils/utils.class.php';?>
+<?php use dwes\app\utils\Utils; ?>
 <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container">
         <div class="navbar-header">

@@ -1,10 +1,12 @@
 <?php
-require_once __DIR__ . '/../src/database/QueryBuilder.class.php';
-require_once __DIR__ . '/../src/entity/Categoria.class.php';
+
+namespace dwes\app\repository;
+use dwes\app\entity\Categoria;
+use dwes\core\database\QueryBuilder;
 
 class CategoriaRepository extends QueryBuilder
 {
-    public function __construct(string $table = 'categorias', string $classEntity = 'Categoria')
+    public function __construct(string $table = 'categorias', string $classEntity = Categoria::class)
     {
         parent::__construct($table, $classEntity);
     }

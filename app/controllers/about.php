@@ -1,5 +1,5 @@
 <?php 
-require_once __DIR__ . '/../../src/entity/imagen.class.php';
+namespace dwes\app\entity;
 $imagenesClientes= [new Imagen('client1.jpg','MISS BELLA'),
 new Imagen('client2.jpg','DON PENO', 0),
 new Imagen('client3.jpg','SWEETY', 0),

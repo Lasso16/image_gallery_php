@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/IEntity.interface.php';
+
+namespace dwes\app\entity;
 
 class Imagen implements IEntity
 {
@@ -61,7 +62,7 @@ class Imagen implements IEntity
      * Summary of getId
      * @return int
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }

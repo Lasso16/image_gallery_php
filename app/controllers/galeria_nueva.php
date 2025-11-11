@@ -1,9 +1,13 @@
 <?php 
-require_once __DIR__ . '/../../core/App.php';
-require_once __DIR__ . '/../../src/utils/File.class.php';
-require_once __DIR__ . '/../../src/entity/Imagen.class.php';
-require_once __DIR__ . '/../../repository/ImagenRepository.php';
-require_once __DIR__ . '/../../repository/CategoriaRepository.php';
+namespace dwes\app\entity;
+use dwes\core\App;
+use dwes\app\exceptions\AppException;
+use dwes\app\exceptions\CategoriaException;
+use dwes\app\exceptions\FileException;
+use dwes\app\exceptions\QueryException;
+use dwes\app\utils\File;
+use dwes\app\repository\ImagenRepository;
+
 
 try {
     $conexion = App::getConnection();

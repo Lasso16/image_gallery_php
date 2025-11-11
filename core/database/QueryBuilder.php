@@ -1,7 +1,12 @@
 <?php
-require_once __DIR__ . '/../exceptions/QueryException.class.php';
-require_once __DIR__ . '/../entity/Imagen.class.php';
-require_once __DIR__ . '/../../core/app.php';
+
+namespace dwes\core\database;
+use dwes\core\App;
+use dwes\app\exceptions\NotFoundException;
+use dwes\app\exceptions\QueryException;
+use dwes\app\entity\IEntity;
+use PDOException;
+use PDO;
 abstract class QueryBuilder
 {
     /**
@@ -33,7 +38,7 @@ abstract class QueryBuilder
      * @throws NotFoundException
      * @throws QueryException
      */
-    public function find(int $id): IEntity
+    public function find(int $id): object
     {
         $sql = "SELECT * FROM $this->table WHERE id=$id";
         $result = $this->executeQuery($sql);

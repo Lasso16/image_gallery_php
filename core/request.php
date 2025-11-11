@@ -1,4 +1,5 @@
 <?php
+namespace dwes\core;
 class Request
 {
     public static function uri()
