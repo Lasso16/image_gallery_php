@@ -8,3 +8,4 @@ $router->get ('galeria', 'app/controllers/galeria.php');
 $router->get ('post', 'app/controllers/single_post.php');
 
 $router->post('galeria/nueva', 'app/controllers/galeria_nueva.php');
+$router->post('contact/enviar', 'app/controllers/contact-enviar.php');

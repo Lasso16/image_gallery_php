@@ -16,37 +16,43 @@ require_once __DIR__ . '/../controllers/navegacion.part.php';
 			<h1>CONTACT US</h1>
 			<hr>
 			<p>Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-			<form class="form-horizontal">
+			<form clas="form-horizontal" action="/contact/enviar" method="post"
+				enctype="multipart/form-data">
 				<div class="form-group">
 					<div class="col-xs-6">
 						<label class="label-control">First Name</label>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" name="nombre" />
 					</div>
 					<div class="col-xs-6">
 						<label class="label-control">Last Name</label>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" name="apellidos">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
 						<label class="label-control">Email</label>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" name="email">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
 						<label class="label-control">Subject</label>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" name="asunto">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
 						<label class="label-control">Message</label>
-						<textarea class="form-control"></textarea>
+						<textarea class="form-control" name="mensaje"></textarea>
 						<button class="pull-right btn btn-lg sr-button">SEND</button>
 					</div>
 				</div>
 			</form>
+			<?php if (!empty($mensaje)): ?>
+				<div class="alert alert-info" role="alert">
+					<?= htmlspecialchars($mensaje) ?>
+				</div>
+			<?php endif; ?>
 			<hr class="divider">
 			<div class="address">
 				<h3>GET IN TOUCH</h3>

@@ -1,6 +1,7 @@
 {
     "require": {
-        "monolog/monolog": "^3.9"
+        "monolog/monolog": "^3.9",
+        "phpmailer/phpmailer": "^7.0"
     },
     "autoload": {
         "psr-4": { "dwes\\": "" }
