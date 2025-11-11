@@ -19,6 +19,7 @@ try {
     $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
     $imagenGaleria = new Imagen($imagen->getFileName(), $descripcion, $categoria);
     $imagenesRepository->guarda($imagenGaleria);
+    App::get('logger')->add("Se ha guardado una imagen: ".$imagenGaleria->getNombre());
     $mensaje = "Se ha guardado la imagen correctamente";
     } catch (FileException $fileException) {
     $errores[] = $fileException->getMessage();
