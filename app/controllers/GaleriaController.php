@@ -11,7 +11,7 @@ use dwes\app\exceptions\QueryException;
 use dwes\app\exceptions\AppException;
 use dwes\app\utils\File;
 use dwes\app\entity\Imagen;
-
+use dwes\core\Response;
 class GaleriaController
 {
     public function index()
@@ -29,7 +29,12 @@ class GaleriaController
             $categorias = $categoriasRepository->findAll();
 
             \dwes\core\Response::renderView('galeria', 'layout', compact(
-                'imagenes', 'categorias', 'errores', 'titulo', 'descripcion', 'mensaje'
+                'imagenes',
+                'categorias',
+                'errores',
+                'titulo',
+                'descripcion',
+                'mensaje'
             ));
         } catch (QueryException $e) {
             $errores[] = $e->getMessage();
@@ -68,7 +73,6 @@ class GaleriaController
 
             App::get('logger')->add("Se ha guardado una imagen: " . $imagenGaleria->getNombre());
             $mensaje = "Se ha guardado la imagen correctamente";
-
         } catch (FileException $e) {
             $errores[] = $e->getMessage();
         } catch (CategoriaException) {
@@ -83,12 +87,27 @@ class GaleriaController
         if (!empty($errores)) {
             $imagenes = App::getRepository(ImagenRepository::class)->findAll();
             $categorias = App::getRepository(CategoriaRepository::class)->findAll();
-            \dwes\core\Response::renderView('galeria', 'layout', compact(
-                'imagenes', 'categorias', 'errores', 'titulo', 'descripcion'
+            Response::renderView('galeria', 'layout', compact(
+                'imagenes',
+                'categorias',
+                'errores',
+                'titulo',
+                'descripcion'
             ));
         } else {
             // Redirigimos para evitar reenvío al recargar
             App::get('router')->redirect('galeria');
         }
+    }
+
+    public function show($id)
+    {
+        $imagenesRepository = App::getRepository(ImagenRepository::class);
+        $imagen = $imagenesRepository->find($id);
+        Response::renderView(
+            'imagen-show',
+            'layout',
+            compact('imagen', 'imagenesRepository')
+        );
     }
 }

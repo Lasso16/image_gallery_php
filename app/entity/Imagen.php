@@ -18,7 +18,7 @@ class Imagen implements IEntity
      */
     private $descripcion;
     /**
-     *@var Categoria
+     *@var int|Categoria
      */
     private $categoria;
     /**
@@ -89,13 +89,13 @@ class Imagen implements IEntity
      * @return string
      */
     public function getCategoria(): Categoria
-{
-    if (is_int($this->categoria)) {
-        $repo = new \dwes\app\repository\CategoriaRepository();
-        $this->categoria = $repo->find($this->categoria);
+    {
+        if (is_int($this->categoria)) {
+            $repo = new \dwes\app\repository\CategoriaRepository();
+            $this->categoria = $repo->find($this->categoria);
+        }
+        return $this->categoria;
     }
-    return $this->categoria;
-}
 
     /**
      * Summary of getNumVisualizaciones
@@ -147,10 +147,10 @@ class Imagen implements IEntity
      * @return Imagen
      */
     public function setCategoria(Categoria $categoria): Imagen
-{
-    $this->categoria = $categoria;
-    return $this;
-}
+    {
+        $this->categoria = $categoria;
+        return $this;
+    }
     /**
      * Summary of setNumVisualizaciones
      * @param mixed $numVisualizaciones
@@ -202,12 +202,23 @@ class Imagen implements IEntity
         return self::RUTA_IMAGENES_CLIENTES . $this->getNombre();
     }
 
-    function getUrlGalerias()
+    public function getUrlGalerias(): string
     {
-        return self::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
+        $pathReal = __DIR__ . "/../../public/images/index/gallery/" . $this->getNombre();
+        $url = "/public/images/index/gallery/" . $this->getNombre();
+
+        if (!file_exists($pathReal)) {
+            $url = "/public/images/no-image.png";
+        }
+
+        return $url;
     }
+
     public function toArray(): array
     {
+        $categoriaId = is_int($this->categoria)
+            ? $this->categoria
+            : ($this->categoria instanceof Categoria ? $this->categoria->getId() : null);
         return [
             'id' => $this->getId(),
             'nombre' => $this->getNombre(),
@@ -215,7 +226,7 @@ class Imagen implements IEntity
             'numVisualizaciones' => $this->getNumVisualizaciones(),
             'numLikes' => $this->getNumLikes(),
             'numDownloads' => $this->getNumDownloads(),
-            'categoria' => $this->getCategoria()->getId()
+            'categoria' => $categoriaId
 
         ];
     }
