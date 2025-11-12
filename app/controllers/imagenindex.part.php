@@ -1,7 +1,7 @@
 <div id="<?= "category" . $idCategoria?>" class="tab-pane <?= $idCategoria === 1 ? 'active' : '' ?>">
     <div class="row popup-gallery">
         
-                <?php foreach ($imagenesIndex as $i): ?>
+                <?php foreach ($imagenGaleria as $i): ?>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="sol">
                         <img class="img-responsive" src="<?= $i->getUrlPortfolio() ?>" alt="First category picture">

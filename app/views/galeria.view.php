@@ -1,7 +1,3 @@
-<?php
-require_once __DIR__ . '/../controllers/inicio.part.php';
-require_once __DIR__ . '/../controllers/navegacion.part.php';
-?>
 <div class="hero hero-inner">
     <div class="container">
         <div class="row align-items-center">
@@ -78,21 +74,22 @@ require_once __DIR__ . '/../controllers/navegacion.part.php';
                 </tr>
             </thead>
             <tbody>
-                <?php foreach (($imagenes ?? []) as $imagen) : ?>
-                    <tr>
-                        <th scope="row"><?= $imagen->getNombre() ?></th>
-                        <td>
-                            <img src="<?= $imagen->getUrlGaleria() ?>"
-                                alt="<?= $imagen->getDescripcion() ?>"
-                                title="<?= $imagen->getDescripcion() ?>"
-                                width="100px">
-                        </td>
-                        <td><?= $imagen->getNumVisualizaciones() ?></td>
-                        <td><?= $imagen->getNumLikes() ?></td>
-                        <td><?= $imagen->getNumDownloads() ?></td>
-                        <td><?= $imagenesRepository->getCategoria($imagen)->getNombre()?></td>
-                    </tr>
-                <?php endforeach; ?>
+                
+            <?php foreach (($imagenes ?? []) as $imagen) : ?>
+    <tr>
+        <th scope="row"><?= $imagen->getNombre() ?></th>
+        <td>
+            <img src="<?= $imagen->getUrlGaleria() ?>"
+                 alt="<?= $imagen->getDescripcion() ?>"
+                 title="<?= $imagen->getDescripcion() ?>"
+                 width="100px">
+        </td>
+        <td><?= $imagen->getNumVisualizaciones() ?></td>
+        <td><?= $imagen->getNumLikes() ?></td>
+        <td><?= $imagen->getNumDownloads() ?></td>
+        <td><?= $imagen->getCategoria()->getNombre() ?></td>
+    </tr>
+<?php endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -100,4 +97,4 @@ require_once __DIR__ . '/../controllers/navegacion.part.php';
 </div>
 </div>
 <?php
-require_once __DIR__ . '/../controllers/fin.part.php';
+

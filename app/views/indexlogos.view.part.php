@@ -10,8 +10,8 @@
           <hr>
           <div class="text-muted text-left">
           <?php 
-                $asociados = Utils::extraeElementosAleatorios($asociadosIndex, 3);
-                foreach($asociados as $a) : ?>
+                $asociados = Utils::extraeElementosAleatorios($asociadoLista, 3);
+                foreach($asociadoLista as $a) : ?>
             <ul class="list-inline">                
               <li><img src="<?= $a->getUrl()?>" alt="logo"></li>
               <li><?= $a?></li>

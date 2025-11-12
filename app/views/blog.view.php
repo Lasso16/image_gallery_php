@@ -1,12 +1,4 @@
-<?php
-require_once __DIR__ . '/../controllers/inicio.part.php';
-?>
 
-<!-- Navigation Bar -->
-<?php
-require_once __DIR__ . '/../controllers/navegacion.part.php';
-?>
-<!-- End of Navigation Bar -->
 
 <!-- Principal Content Start -->
 <div id="blog">
@@ -154,6 +146,3 @@ require_once __DIR__ . '/../controllers/navegacion.part.php';
   </div>
 </div>
 <!-- End of Principal Content Start -->
-
-<!-- Footer -->
-<?php require_once __DIR__ . "/../controllers/fin.part.php" ?>

@@ -17,5 +17,8 @@ return [
     ],
     'routes' => [
         'filename' => 'routes.php'
+    ],
+    'project' => [
+        'namespace' => 'dwes'
     ]
 ];

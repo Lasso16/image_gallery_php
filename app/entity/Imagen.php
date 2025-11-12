@@ -18,7 +18,7 @@ class Imagen implements IEntity
      */
     private $descripcion;
     /**
-     *@var string
+     *@var Categoria
      */
     private $categoria;
     /**
@@ -88,10 +88,15 @@ class Imagen implements IEntity
      * Summary of getCategoria
      * @return string
      */
-    public function getCategoria(): string
-    {
-        return $this->categoria;
+    public function getCategoria(): Categoria
+{
+    if (is_int($this->categoria)) {
+        $repo = new \dwes\app\repository\CategoriaRepository();
+        $this->categoria = $repo->find($this->categoria);
     }
+    return $this->categoria;
+}
+
     /**
      * Summary of getNumVisualizaciones
      * @return int
@@ -141,11 +146,11 @@ class Imagen implements IEntity
      * @param mixed $categoria
      * @return Imagen
      */
-    public function setCategoria($categoria): Imagen
-    {
-        $this->categoria = $categoria;
-        return $this;
-    }
+    public function setCategoria(Categoria $categoria): Imagen
+{
+    $this->categoria = $categoria;
+    return $this;
+}
     /**
      * Summary of setNumVisualizaciones
      * @param mixed $numVisualizaciones
@@ -210,7 +215,8 @@ class Imagen implements IEntity
             'numVisualizaciones' => $this->getNumVisualizaciones(),
             'numLikes' => $this->getNumLikes(),
             'numDownloads' => $this->getNumDownloads(),
-            'categoria' => $this->getCategoria()
+            'categoria' => $this->getCategoria()->getId()
+
         ];
     }
 }
