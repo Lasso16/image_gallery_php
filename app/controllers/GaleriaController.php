@@ -28,7 +28,7 @@ class GaleriaController
             $imagenes = $imagenesRepository->findAll();
             $categorias = $categoriasRepository->findAll();
 
-            \dwes\core\Response::renderView('galeria', 'layout', compact(
+            Response::renderView('galeria', 'layout', compact(
                 'imagenes',
                 'categorias',
                 'errores',
@@ -38,10 +38,10 @@ class GaleriaController
             ));
         } catch (QueryException $e) {
             $errores[] = $e->getMessage();
-            \dwes\core\Response::renderView('galeria', 'layout', compact('errores'));
+            Response::renderView('galeria', 'layout', compact('errores'));
         } catch (AppException $e) {
             $errores[] = $e->getMessage();
-            \dwes\core\Response::renderView('galeria', 'layout', compact('errores'));
+            Response::renderView('galeria', 'layout', compact('errores'));
         }
     }
 

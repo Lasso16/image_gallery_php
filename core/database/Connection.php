@@ -1,5 +1,6 @@
 <?php
 namespace dwes\core\database;
+
 use dwes\app\exceptions\AppException;
 use dwes\core\App;
 use PDOException;

@@ -7,6 +7,7 @@ use dwes\app\repository\ImagenRepository;
 use dwes\app\repository\AsociadosRepository;
 use dwes\app\entity\Imagen;
 use dwes\core\Response;
+use dwes\app\exceptions\QueryException;
 
 class PagesController
 {
