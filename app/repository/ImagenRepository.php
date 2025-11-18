@@ -24,13 +24,11 @@ class ImagenRepository extends QueryBuilder
      */
     public function getCategoria(Imagen $imagenGaleria): Categoria
     {
-        // Si getCategoria() ya devuelve un objeto Categoria, no hace falta volver a buscarlo
         $cat = $imagenGaleria->getCategoria();
         if ($cat instanceof Categoria) {
             return $cat;
         }
 
-        // Si por alguna razón aún fuera un id, entonces sí lo buscamos
         $categoriaRepository = new CategoriaRepository();
         return $categoriaRepository->find((int)$cat);
     }

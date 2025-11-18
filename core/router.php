@@ -88,8 +88,7 @@ class Router
             $objController = new $controller();
             if (!method_exists($objController, $action))
                 throw new NotFoundException("El controlador $controller no responde al action $action");
-            //$objController->$action();
-            // Llamamo al action del controlador pasándole los parámetros
+            
             call_user_func_array(array($objController, $action), $parameters);
             return true;
         } catch (\TypeError $typeError) {
@@ -100,5 +99,15 @@ class Router
     public function redirect(string $path)
     {
         header('location: /' . $path);
+        exit();
+    }
+
+    public function logout()
+    {
+        if (isset($_SESSION['loguedUser'])) {
+            $_SESSION['loguedUser'] = null;
+            unset($_SESSION['loguedUser']);
+        }
+        App::get('router')->redirect('login');
     }
 }

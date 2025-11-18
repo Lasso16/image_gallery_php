@@ -24,7 +24,7 @@ class Categoria implements IEntity
         $this->numImagenes = $numImagenes;
     }
 
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }

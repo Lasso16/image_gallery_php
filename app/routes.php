@@ -16,5 +16,6 @@ $router->get ('galeria/:id', 'GaleriaController@show');
 $router->get ('post', 'app/controllers/single_post.php');
 $router->get ('post', 'PagesController@post');
 
-
-
+$router->get('login', 'AuthController@login');
+$router->post('check-login', 'AuthController@checkLogin');
+$router->get('logout', 'AuthController@logout');

@@ -1,12 +1,14 @@
 <?php
 
 namespace dwes\core\database;
+
 use dwes\core\App;
 use dwes\app\exceptions\NotFoundException;
 use dwes\app\exceptions\QueryException;
 use dwes\app\entity\IEntity;
 use PDOException;
 use PDO;
+
 abstract class QueryBuilder
 {
     /**
@@ -51,10 +53,10 @@ abstract class QueryBuilder
      * @return array
      * @throws QueryException
      */
-    private function executeQuery(string $sql): array
+    private function executeQuery(string $sql, array $parameters = []): array
     {
         $pdoStatement = $this->connection->prepare($sql);
-        if ($pdoStatement->execute() === false)
+        if ($pdoStatement->execute($parameters) === false)
             throw new QueryException("No se ha podido ejecutar la query solicitada.");
 
         return $pdoStatement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $this->classEntity);
@@ -119,5 +121,26 @@ abstract class QueryBuilder
         } catch (PDOException $pdoException) {
             throw new QueryException($pdoException->getMessage());
         }
+    }
+
+    public function findBy(array $filters): array
+    {
+        $sql = "SELECT * FROM $this->table " . $this->getFilters($filters);
+        return $this->executeQuery($sql, $filters);
+    }
+    public function getFilters(array $filters)
+    {
+        if (empty($filters)) return '';
+        $strFilters = [];
+        foreach ($filters as $key => $value)
+            $strFilters[] = $key . '=:' . $key;
+        return ' WHERE ' . implode(' and ', $strFilters);
+    }
+    public function findOneBy(array $filters): ?IEntity
+    {
+        $result = $this->findBy($filters);
+        if (count($result) > 0)
+            return $result[0];
+        return null;
     }
 }
