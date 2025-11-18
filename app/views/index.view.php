@@ -40,7 +40,7 @@
 
       <?php
       $idCategoria = 1;
-      require __DIR__ . "/../controllers/imagenindex.part.php";
+      require __DIR__ . "/imagenindex.part.php";
       ?>
 
       <!-- End of First category pictures -->
@@ -49,7 +49,7 @@
 
       <?php
       $idCategoria = 2;
-      require __DIR__ . "/../controllers/imagenindex.part.php";
+      require __DIR__ . "/imagenindex.part.php";
       ?>
 
 
@@ -59,7 +59,7 @@
 
       <?php
       $idCategoria = 3;
-      require __DIR__ . "/../controllers/imagenindex.part.php";
+      require __DIR__ . "/imagenindex.part.php";
       ?>
 
 

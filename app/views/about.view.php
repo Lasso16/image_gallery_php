@@ -120,7 +120,7 @@
     <div class="row feedback text-center">
       <h3>CLIENTS FEEDBACK</h3>
       <hr>
-      <?php require_once __DIR__ . "/../controllers/imagencliente.part.php" ?>
+      <?php require_once __DIR__ . "/imagencliente.part.php" ?>
 
       <!-- End of Clients Feedback -->
 
