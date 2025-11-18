@@ -10,7 +10,7 @@ $router->get('contact', 'ContactoController@index');
 $router->post('contact/enviar', 'ContactoController@enviar');
 
 $router->get ('galeria', 'GaleriaController@index', 'ROLE_USER');
-$router->post('galeria/nueva', 'GaleriaController@nueva', 'ROLE_ADMIN');
+$router->post('galeria/nueva', 'GaleriaController@nueva');
 $router->get ('galeria/:id', 'GaleriaController@show', 'ROLE_USER');
 
 $router->get ('post', 'app/controllers/single_post.php');

@@ -23,7 +23,8 @@ class GaleriaController
             $imagenesRepository = App::getRepository(ImagenRepository::class);
             $categoriasRepository = App::getRepository(CategoriaRepository::class);
 
-            $imagenes = $imagenesRepository->findAll();
+            $imagenes = $imagenesRepository->findByUsuario(App::get('appUser')->getId());
+
             $categorias = $categoriasRepository->findAll();
 
             $errores = FlashMessage::get('errores', []);
@@ -74,6 +75,7 @@ class GaleriaController
             $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
 
             $imagenGaleria = new Imagen($imagen->getFileName(), $descripcion, $categoria);
+            $imagenGaleria->setIdUsuario(App::get("appUser")->getId());
             $imagenesRepository = App::getRepository(ImagenRepository::class);
             /**@var ImagenRepository $imagenesRepository */
             $imagenesRepository->guarda($imagenGaleria);

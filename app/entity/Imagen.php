@@ -33,6 +33,11 @@ class Imagen implements IEntity
      *@var int
      */
     private $numDownloads;
+    /**
+     * Summary of idUsuario
+     * @var 
+     */
+    private $idUsuario;
 
     const RUTA_IMAGENES_PORTFOLIO = '/../..//public/images/index/portfolio/';
     const RUTA_IMAGENES_GALERIA = '/../..//public/images/index/gallery/';
@@ -121,6 +126,11 @@ class Imagen implements IEntity
     {
         return $this->numDownloads;
     }
+
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }   
     /**
      * Summary of setNombre
      * @param mixed $nombre
@@ -182,6 +192,12 @@ class Imagen implements IEntity
         return $this;
     }
 
+    public function setIdUsuario($idUsuario): Imagen
+    {
+        $this->idUsuario = $idUsuario;
+        return $this;
+    }
+
     function __tostring()
     {
         return $this->descripcion;
@@ -226,8 +242,8 @@ class Imagen implements IEntity
             'numVisualizaciones' => $this->getNumVisualizaciones(),
             'numLikes' => $this->getNumLikes(),
             'numDownloads' => $this->getNumDownloads(),
-            'categoria' => $categoriaId
-
+            'categoria' => $categoriaId,
+            'idUsuario' => $this->getIdUsuario(),
         ];
     }
 }

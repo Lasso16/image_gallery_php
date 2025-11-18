@@ -33,10 +33,6 @@ class ImagenRepository extends QueryBuilder
         return $categoriaRepository->find((int)$cat);
     }
 
-
-
-
-
     /**
      * 
      * @param Imagen $imagenGaleria
@@ -53,5 +49,9 @@ class ImagenRepository extends QueryBuilder
         };
 
         $this->executeTransaction($fnGuardarImagen);
+    }
+
+    public function findByUsuario(int $idUsuario) {
+        return $this->findBy(["idUsuario"  => $idUsuario]);
     }
 }
