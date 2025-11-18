@@ -11,16 +11,14 @@ use dwes\app\exceptions\QueryException;
 use dwes\app\exceptions\AppException;
 use dwes\app\utils\File;
 use dwes\app\entity\Imagen;
+use dwes\app\exceptions\ValidationException;
 use dwes\core\Response;
+use dwes\core\helpers\FlashMessage;
+
 class GaleriaController
 {
     public function index()
     {
-        $errores = [];
-        $titulo = "";
-        $descripcion = "";
-        $mensaje = "";
-
         try {
             $imagenesRepository = App::getRepository(ImagenRepository::class);
             $categoriasRepository = App::getRepository(CategoriaRepository::class);
@@ -28,13 +26,20 @@ class GaleriaController
             $imagenes = $imagenesRepository->findAll();
             $categorias = $categoriasRepository->findAll();
 
+            $errores = FlashMessage::get('errores', []);
+            $mensaje = FlashMessage::get('mensaje');
+            $titulo = FlashMessage::get('titulo');
+            $descripcion = FlashMessage::get('descripcion');
+            $categoriaSeleccionada = FlashMessage::get('categoriaSeleccionada');
+
             Response::renderView('galeria', 'layout', compact(
                 'imagenes',
                 'categorias',
                 'errores',
                 'titulo',
                 'descripcion',
-                'mensaje'
+                'mensaje',
+                'categoriaSeleccionada'
             ));
         } catch (QueryException $e) {
             $errores[] = $e->getMessage();
@@ -47,9 +52,6 @@ class GaleriaController
 
     public function nueva()
     {
-        $errores = [];
-        $mensaje = "";
-
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 App::get('router')->redirect('galeria');
@@ -59,9 +61,13 @@ class GaleriaController
             $descripcion = trim(htmlspecialchars($_POST['descripcion'] ?? ''));
             $categoria = trim(htmlspecialchars($_POST['categoria'] ?? ''));
 
+            FlashMessage::set('descripcion', $descripcion);
+            FlashMessage::set('titulo', $titulo);
             if (empty($categoria)) {
-                throw new CategoriaException();
+                throw new ValidationException("No se ha recibido la categoría");
             }
+            FlashMessage::set('categoriaSeleccionada', $categoria);
+
 
             $tiposAceptados = ['image/jpeg', 'image/gif', 'image/png'];
             $imagen = new File('imagen', $tiposAceptados);
@@ -69,18 +75,28 @@ class GaleriaController
 
             $imagenGaleria = new Imagen($imagen->getFileName(), $descripcion, $categoria);
             $imagenesRepository = App::getRepository(ImagenRepository::class);
+            /**@var ImagenRepository $imagenesRepository */
             $imagenesRepository->guarda($imagenGaleria);
 
             App::get('logger')->add("Se ha guardado una imagen: " . $imagenGaleria->getNombre());
             $mensaje = "Se ha guardado la imagen correctamente";
-        } catch (FileException $e) {
-            $errores[] = $e->getMessage();
-        } catch (CategoriaException) {
-            $errores[] = "No se ha seleccionado una categoría válida";
-        } catch (QueryException $e) {
-            $errores[] = $e->getMessage();
-        } catch (AppException $e) {
-            $errores[] = $e->getMessage();
+
+            FlashMessage::set('mensaje', $mensaje);
+
+            FlashMessage::unset('descripcion');
+            FlashMessage::unset('titulo');
+            FlashMessage::unset('categoriaSeleccionada');
+            
+        } catch (ValidationException $validationException) {
+            FlashMessage::set('errores', [$validationException->getMessage()]);
+        } catch (FileException $fileException) {
+            FlashMessage::set('errores', [$fileException->getMessage()]);
+        } catch (CategoriaException $categoriaException) {
+            FlashMessage::set('errores', [$categoriaException->getMessage()]);
+        } catch (QueryException $QueryException) {
+            FlashMessage::set('errores', [$QueryException->getMessage()]);
+        } catch (AppException $AppException) {
+            FlashMessage::set('errores', [$AppException->getMessage()]);
         }
 
         // Si hay errores, los mostramos en la vista

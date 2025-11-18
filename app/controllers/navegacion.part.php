@@ -20,21 +20,27 @@
 
         <?php if (Utils::esOpcionMenuActiva('/about')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/about">About</a></li>
+          <a href="/about"><i class="fa fa-bookmark sr-icons"></i> About</a></li>
+
+
 
         <?php if (Utils::esOpcionMenuActiva('/blog')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/blog">Blog</a></li>
+          <a href="/blog"><i class="fa fa-file-text sr-icons"></i> Blog</a></li>
+
 
         <?php if (Utils::esOpcionMenuActiva('/contact')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/contact">Contact</a></li>
+          <a href="/contact"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
           <?php if (Utils::esOpcionMenuActiva('/galeria')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/galeria">Gallery</a></li>
+          <a href="/galeria"><i class="fa fa-camera sr-icons"></i> Galeria</a></li>
+
+
           <?php if (Utils::esOpcionMenuActiva('/asociados')) 
           echo '<li class="active lien">'; else echo '<li class="lien">'; ?>
-          <a href="/asociados">Asociados</a></li>
+          <a href="/asociados"><i class="fa fas fa-user-plus"></i> Asociados</a></li>
+
             </ul>
         </div>
     </div>

@@ -44,7 +44,7 @@ class ImagenRepository extends QueryBuilder
      * @param Imagen $imagenGaleria
      * @return void
      */
-    public function guarda(Imagen $imagenGaleria)
+    public function guarda(Imagen $imagenGaleria): void
     {
         $fnGuardarImagen = function () use ($imagenGaleria) {
             $categoria = $this->getCategoria($imagenGaleria);
