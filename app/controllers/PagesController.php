@@ -16,8 +16,8 @@ class PagesController
      */
     public function index()
     {
-        $imagenGaleria = App::getRepository(ImagenRepository::class)->findAll();
-        $asociadoLista = App::getRepository(AsociadosRepository::class)->findAll();
+        $imagenGaleria = App::getRepository(ImagenRepository::class)->findAll() ?? [];
+        $asociadoLista = App::getRepository(AsociadosRepository::class)->findAll() ?? [];
         Response::renderView(
             'index',
             'layout',

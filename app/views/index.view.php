@@ -40,7 +40,6 @@
 
       <?php
       $idCategoria = 1;
-      shuffle($imagenGaleria);
       require __DIR__ . "/../controllers/imagenindex.part.php";
       ?>
 
@@ -50,7 +49,6 @@
 
       <?php
       $idCategoria = 2;
-      shuffle($imagenGaleria);
       require __DIR__ . "/../controllers/imagenindex.part.php";
       ?>
 
@@ -61,7 +59,6 @@
 
       <?php
       $idCategoria = 3;
-      shuffle($imagenGaleria);
       require __DIR__ . "/../controllers/imagenindex.part.php";
       ?>
 

@@ -20,5 +20,12 @@ return [
     ],
     'project' => [
         'namespace' => 'dwes'
+    ],
+    'security' => [
+        'roles' => [
+            'ROLE_ADMIN' => 3,
+            'ROLE_USER' => 2,
+            'ROLE_ANONYMOUS' => 1
+        ]
     ]
 ];

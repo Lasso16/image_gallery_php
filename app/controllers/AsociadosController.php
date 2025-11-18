@@ -26,8 +26,7 @@ class AsociadosController
 
     public function nuevo()
     {
-        session_start();
-
+    
         $errores = [];
         $mensaje = "";
         $nombre = trim($_POST['nombre'] ?? '');
