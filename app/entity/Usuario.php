@@ -4,9 +4,9 @@ namespace dwes\app\entity;
 class Usuario implements IEntity {
     /**
      * Summary of id
-     * @var int
+     * @var 
      */
-    private int $id;
+    private $id;
     /**
      * Summary of username
      * @var string
@@ -23,7 +23,7 @@ class Usuario implements IEntity {
      */
     private string $role;
 
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
 
@@ -55,7 +55,7 @@ class Usuario implements IEntity {
 
     public function toArray(): array
     {
-        return ['id' => $this->id, 'username' => $this->username, 'role' => $this->role];
+        return ['id' => $this->id, 'username' => $this->username, 'role' => $this->role, 'password' => $this->password];
 
     }
 }

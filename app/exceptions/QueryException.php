@@ -1,6 +1,10 @@
 <?php
 namespace dwes\app\exceptions;
-use Exception;
-Class QueryException extends Exception
+use dwes\app\exceptions\AppException;
+Class QueryException extends AppException
 {
+    public function __construct(string $message = "", int $code = 500)
+    {
+        return parent::__construct($message, $code);
+    }
 }

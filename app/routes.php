@@ -19,3 +19,6 @@ $router->get ('post', 'PagesController@post');
 $router->get('login', 'AuthController@login');
 $router->post('check-login', 'AuthController@checkLogin');
 $router->get('logout', 'AuthController@logout', 'ROLE_USER');
+
+$router->get ('registro', 'AuthController@registro');
+$router->post('check-registro', 'AuthController@checkRegistro');

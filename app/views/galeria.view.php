@@ -66,7 +66,7 @@
                     <tr>
                         <th scope="row"><?= $imagen->getNombre() ?></th>
                         <td>
-                            <img src="<?= $imagen->getUrlGaleria() ?>"
+                            <img src="<?= $imagen->getUrlPortfolio() ?>"
                                 alt="<?= $imagen->getDescripcion() ?>"
                                 title="<?= $imagen->getDescripcion() ?>"
                                 width="100px">
