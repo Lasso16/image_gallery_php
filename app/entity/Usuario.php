@@ -39,6 +39,10 @@ class Usuario implements IEntity {
         return $this->role;
     }
 
+    public function esAdmin(): bool {
+        return strtoupper($this->role) === 'ROLE_ADMIN';
+    }
+
 	public function setUsername(string $username): void {
         $this->username = $username;
     }
