@@ -21,11 +21,13 @@ class GaleriaController
     public function index()
     {
         try {
+            /**
+             * @var ImagenRepository $imagenesRepository
+             */
             $imagenesRepository = App::getRepository(ImagenRepository::class);
             $categoriasRepository = App::getRepository(CategoriaRepository::class);
 
             $imagenes = $imagenesRepository->findByUsuario(App::get('appUser')->getId());
-
             $categorias = $categoriasRepository->findAll();
 
             $errores = FlashMessage::get('errores', []);
@@ -54,68 +56,81 @@ class GaleriaController
 
     public function nueva()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            App::get('router')->redirect('galeria');
+        }
+
+        $titulo = trim(htmlspecialchars($_POST['titulo'] ?? ''));
+        $descripcion = trim(htmlspecialchars($_POST['descripcion'] ?? ''));
+        $categoria = trim(htmlspecialchars($_POST['categoria'] ?? ''));
+
+        FlashMessage::set('titulo', $titulo);
+        FlashMessage::set('descripcion', $descripcion);
+        FlashMessage::set('categoriaSeleccionada', $categoria);
+
+        $errores = [];
+        $nombreImagenSubida = '';
+
+        if (isset($_FILES['imagen']) && ($_FILES['imagen']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+            try {
+                $tiposAceptados = ['image/jpeg', 'image/gif', 'image/png'];
+                $imagen = new File('imagen', $tiposAceptados);
+                $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
+                $nombreImagenSubida = $imagen->getFileName();
+                FlashMessage::set('imagenSubida', $nombreImagenSubida);
+            } catch (FileException $fileException) {
+                $errores[] = $fileException->getMessage();
+            }
+        }
+        if ($titulo === '') {
+            $errores[] = 'El título es obligatorio';
+        }
+        if ($descripcion === '') {
+            $errores[] = 'La descripción es obligatoria';
+        }
+        if ($categoria === '') {
+            $errores[] = 'No se ha recibido la categoría';
+        }
+
+        if (!empty($errores)) {
+            FlashMessage::set('errores', $errores);
+            App::get('router')->redirect('galeria');
+        }
+
+        $nombreFichero = $nombreImagenSubida;
+        if ($nombreFichero === '') {
+            $nombreFichero = FlashMessage::get('imagenSubida', '');
+        }
+        if ($nombreFichero === '') {
+            FlashMessage::set('errores', ['Debe seleccionar una imagen']);
+            App::get('router')->redirect('galeria');
+        }
+
         try {
-            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                App::get('router')->redirect('galeria');
-            }
-
-            $titulo = trim(htmlspecialchars($_POST['titulo'] ?? ''));
-            $descripcion = trim(htmlspecialchars($_POST['descripcion'] ?? ''));
-            $categoria = trim(htmlspecialchars($_POST['categoria'] ?? ''));
-
-            FlashMessage::set('descripcion', $descripcion);
-            FlashMessage::set('titulo', $titulo);
-            if (empty($categoria)) {
-                throw new ValidationException("No se ha recibido la categoría");
-            }
-            FlashMessage::set('categoriaSeleccionada', $categoria);
-
-
-            $tiposAceptados = ['image/jpeg', 'image/gif', 'image/png'];
-            $imagen = new File('imagen', $tiposAceptados);
-            $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
-
-            $imagenGaleria = new Imagen($imagen->getFileName(), $descripcion, $categoria);
+            $imagenGaleria = new Imagen($nombreFichero, $descripcion, $titulo, $categoria);
+            $imagenGaleria->setIdUsuario(App::get('appUser')->getId());
+            /** @var ImagenRepository $imagenesRepository */
             $imagenesRepository = App::getRepository(ImagenRepository::class);
-            /**@var ImagenRepository $imagenesRepository */
             $imagenesRepository->guarda($imagenGaleria);
 
-            App::get('logger')->add("Se ha guardado una imagen: " . $imagenGaleria->getNombre());
-            $mensaje = "Se ha guardado la imagen correctamente";
+            App::get('logger')->add('Se ha guardado una imagen: ' . $imagenGaleria->getNombre());
+            FlashMessage::set('mensaje', 'Se ha guardado la imagen correctamente');
 
-            FlashMessage::set('mensaje', $mensaje);
-
-            FlashMessage::unset('descripcion');
             FlashMessage::unset('titulo');
+            FlashMessage::unset('descripcion');
             FlashMessage::unset('categoriaSeleccionada');
-            
-        } catch (ValidationException $validationException) {
-            FlashMessage::set('errores', [$validationException->getMessage()]);
         } catch (FileException $fileException) {
+            FlashMessage::unset('imagenSubida');
             FlashMessage::set('errores', [$fileException->getMessage()]);
         } catch (CategoriaException $categoriaException) {
             FlashMessage::set('errores', [$categoriaException->getMessage()]);
-        } catch (QueryException $QueryException) {
-            FlashMessage::set('errores', [$QueryException->getMessage()]);
-        } catch (AppException $AppException) {
-            FlashMessage::set('errores', [$AppException->getMessage()]);
+        } catch (QueryException $queryException) {
+            FlashMessage::set('errores', [$queryException->getMessage()]);
+        } catch (AppException $appException) {
+            FlashMessage::set('errores', [$appException->getMessage()]);
         }
 
-        // Si hay errores, los mostramos en la vista
-        if (!empty($errores)) {
-            $imagenes = App::getRepository(ImagenRepository::class)->findAll();
-            $categorias = App::getRepository(CategoriaRepository::class)->findAll();
-            Response::renderView('galeria', 'layout', compact(
-                'imagenes',
-                'categorias',
-                'errores',
-                'titulo',
-                'descripcion'
-            ));
-        } else {
-            // Redirigimos para evitar reenvío al recargar
-            App::get('router')->redirect('galeria');
-        }
+        App::get('router')->redirect('galeria');
     }
 
     public function show($id)
@@ -190,6 +205,9 @@ class GaleriaController
 
     public function borrar($id)
     {
+        /**
+         * @var ImagenRepository $imagenesRepository
+         */
         $imagenesRepository = App::getRepository(ImagenRepository::class);
         $imagenesRepository->deleteById($id);
         App::get('router')->redirect('galeria');

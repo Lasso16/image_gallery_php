@@ -76,7 +76,11 @@ use dwes\app\utils\Utils; ?>
             <li class="lien <?= Utils::esOpcionMenuActiva('/miCuenta') ? 'active' : '' ?>">
               <a href="/miCuenta"><i class="fa fa-user sr-icons"></i> <?= $app['user']->getUsername() ?></a>
             </li>
-
+            <!-- NUEVA EXPOSICIÓN -->
+            <li class="lien <?= Utils::esOpcionMenuActiva('/exposiciones/nueva') ? 'active' : '' ?>">
+              <a href="/exposiciones/nueva"><i class="fa fa-plus sr-icons"></i> Nueva Exposición</a>
+            </li>
+            
 
           <?php else: ?>
 

@@ -3,7 +3,6 @@
 		<h1 class="mb-0">Crear exposición</h1>
 		<p class="text-white">Rellena los datos para publicar una exposición</p>
 	</div>
-	<!-- /.container -->
 </div>
 
 <div class="container" style="margin-top: 30px;">

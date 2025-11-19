@@ -13,6 +13,19 @@ use dwes\app\exceptions\ValidationException;
 
 class ExposicionesController
 {
+    public function index()
+    {
+        $repo = App::getRepository(ExposicionRepository::class);
+        $exposiciones = [];
+        try {
+            $exposiciones = $repo->findAll();
+        } catch (QueryException $e) {
+            FlashMessage::set('errores', [$e->getMessage()]);
+        }
+        $errores = FlashMessage::get('errores', []);
+        $mensaje = FlashMessage::get('mensaje', '');
+        Response::renderView('exposiciones', 'layout', compact('exposiciones', 'errores', 'mensaje'));
+    }
     public function crear()
     {
         $errores = FlashMessage::get('errores', []);

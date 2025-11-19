@@ -82,7 +82,7 @@ class Exposicion implements IEntity
         return $this->fechaFin;
     }
 
-    public function getActiva(): bool
+    public function isActiva(): bool
     {
         return $this->activa;
     }

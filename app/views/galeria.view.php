@@ -80,6 +80,7 @@
                         <td><?= $imagen->getNumLikes() ?></td>
                         <td><?= $imagen->getNumDownloads() ?></td>
                         <td><?= $imagen->getCategoria()->getNombre() ?></td>
+                        <td><a href='/exposicion/anadirimagen/<?= $imagen->getId() ?>'>Añadir a exposición</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
