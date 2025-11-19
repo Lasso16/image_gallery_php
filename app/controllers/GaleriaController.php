@@ -17,7 +17,7 @@ use dwes\core\helpers\FlashMessage;
 
 class GaleriaController
 {
-    
+
     public function index()
     {
         try {
@@ -75,8 +75,7 @@ class GaleriaController
             $imagen = new File('imagen', $tiposAceptados);
             $imagen->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
 
-            $imagenGaleria = new Imagen($imagen->getFileName(), $descripcion, $titulo,$categoria);
-            $imagenGaleria->setIdUsuario(App::get("appUser")->getId());
+            $imagenGaleria = new Imagen($imagen->getFileName(), $descripcion, $categoria);
             $imagenesRepository = App::getRepository(ImagenRepository::class);
             /**@var ImagenRepository $imagenesRepository */
             $imagenesRepository->guarda($imagenGaleria);
@@ -114,6 +113,7 @@ class GaleriaController
                 'descripcion'
             ));
         } else {
+            // Redirigimos para evitar reenvío al recargar
             App::get('router')->redirect('galeria');
         }
     }
@@ -141,7 +141,7 @@ class GaleriaController
         );
     }
 
-     public function update($id)
+    public function update($id)
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             App::get('router')->redirect('galeria');
@@ -176,22 +176,20 @@ class GaleriaController
 
         if (!empty($_FILES['imagen']) && $_FILES['imagen']['error'] !== UPLOAD_ERR_NO_FILE) {
             try {
-                $tipos = ['image/jpeg','image/gif','image/png'];
+                $tipos = ['image/jpeg', 'image/gif', 'image/png'];
                 $file = new File('imagen', $tipos);
                 $file->saveUploadFile(Imagen::RUTA_IMAGENES_SUBIDAS);
                 $imagen->setNombre($file->getFileName());
             } catch (\Exception $e) {
-                // Se ignora fallo de subida y no se cambia la imagen
             }
         }
-
-        // Ejecuta la actualización (si no cambió nada, rowCount será 0)
         $repo->edit($imagen);
 
         App::get('router')->redirect('galeria');
     }
 
-    public function borrar($id) {
+    public function borrar($id)
+    {
         $imagenesRepository = App::getRepository(ImagenRepository::class);
         $imagenesRepository->deleteById($id);
         App::get('router')->redirect('galeria');

@@ -25,3 +25,7 @@ $router->get('logout', 'AuthController@logout', 'ROLE_USER');
 
 $router->get ('registro', 'AuthController@registro');
 $router->post('check-registro', 'AuthController@checkRegistro');
+
+
+$router->get('exposiciones/nueva', 'ExposicionesController@crear', 'ROLE_USER');
+$router->post('exposiciones/nueva', 'ExposicionesController@nueva', 'ROLE_USER');
