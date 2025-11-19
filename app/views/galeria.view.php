@@ -33,8 +33,7 @@
                         <select class="form-control" name="categoria">
                             <?php foreach ($categorias as $categoria) : ?>
                                 <option value="<?= $categoria->getId() ?>"
-                                    <?= ($categoriaSeleccionada == $categoria->getId()) ? 'selected' : '' ?>
-                                    ><?= $categoria->getNombre() ?></option>
+                                    <?= ($categoriaSeleccionada == $categoria->getId()) ? 'selected' : '' ?>><?= $categoria->getNombre() ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -44,15 +43,17 @@
                 <label class="label-control">Descripción</label>
                 <textarea class="form-control" name="descripcion"><?= $descripcion ?></textarea>
                 <button class="pull-right btn btn-lg sr-button">ENVIAR</button>
+
+            </form>
         </div>
     </div>
-    </form>
     <hr class="divider">
     <div class="imagenes_galeria">
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Acciones</th>
                     <th scope="col">Imagen</th>
                     <th scope="col">Visualizaciones</th>
                     <th scope="col">Likes</th>
@@ -64,7 +65,11 @@
 
                 <?php foreach (($imagenes ?? []) as $imagen) : ?>
                     <tr>
-                        <th scope="row"><?= $imagen->getNombre() ?></th>
+                        <th scope="row"><a href='/galeria/<?= $imagen->getId() ?>'><?= $imagen->getTitulo()                                                                            ?></a></th>
+                        <td scope="row">
+                            <button><a href='/galeria/editar/<?= $imagen->getId() ?>'>Editar</a></button>
+                            <button><a href='/galeria/borrar/<?= $imagen->getId() ?>'?>Borrar</a></button>
+                        </td>
                         <td>
                             <img src="<?= $imagen->getUrlGaleria() ?>"
                                 alt="<?= $imagen->getDescripcion() ?>"

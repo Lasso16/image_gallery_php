@@ -12,6 +12,9 @@ $router->post('contact/enviar', 'ContactoController@enviar');
 $router->get ('galeria', 'GaleriaController@index', 'ROLE_USER');
 $router->post('galeria/nueva', 'GaleriaController@nueva');
 $router->get ('galeria/:id', 'GaleriaController@show', 'ROLE_USER');
+$router->get('galeria/borrar/:id', 'GaleriaController@borrar', 'ROLE_USER');
+$router->get('galeria/editar/:id', 'GaleriaController@editar', 'ROLE_USER');
+$router->post('galeria/update/:id', 'GaleriaController@update', 'ROLE_USER');
 
 $router->get ('post', 'app/controllers/single_post.php');
 $router->get ('post', 'PagesController@post');

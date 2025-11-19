@@ -143,4 +143,11 @@ abstract class QueryBuilder
             return $result[0];
         return null;
     }
+
+    public function borrar(array $filters) {
+        $sql = "DELETE FROM $this->table " . $this->getFilters($filters);
+        return $this->executeQuery($sql, $filters);
+    }
+
+
 }

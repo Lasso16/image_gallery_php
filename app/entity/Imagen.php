@@ -39,6 +39,12 @@ class Imagen implements IEntity
      */
     private $idUsuario;
 
+    /**
+     * Summary of titulo
+     * @var string
+     */
+    private string $titulo;
+
     const RUTA_IMAGENES_PORTFOLIO = '/../..//public/images/index/portfolio/';
     const RUTA_IMAGENES_GALERIA = '/../..//public/images/index/gallery/';
     const RUTA_IMAGENES_CLIENTES = '/../..//public/images/clients/';
@@ -49,6 +55,7 @@ class Imagen implements IEntity
     public function __construct(
         string $nombre = "",
         string $descripcion = "",
+        string $titulo = "",
         int $categoria = 1,
         int $numVisualizaciones = 0,
         int $numLikes = 0,
@@ -57,6 +64,7 @@ class Imagen implements IEntity
         $this->id = null;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
+        $this->titulo = $titulo;
         $this->categoria = $categoria;
         $this->numVisualizaciones = $numVisualizaciones;
         $this->numLikes = $numLikes;
@@ -131,6 +139,10 @@ class Imagen implements IEntity
     {
         return $this->idUsuario;
     }   
+
+    public function getTitulo(): string {
+        return $this->titulo;
+    }
     /**
      * Summary of setNombre
      * @param mixed $nombre
@@ -198,6 +210,11 @@ class Imagen implements IEntity
         return $this;
     }
 
+    public function setTitulo(string $titulo): Imagen {
+        $this->titulo = $titulo;
+        return $this;
+    }
+
     function __tostring()
     {
         return $this->descripcion;
@@ -244,6 +261,7 @@ class Imagen implements IEntity
             'numDownloads' => $this->getNumDownloads(),
             'categoria' => $categoriaId,
             'idUsuario' => $this->getIdUsuario(),
+            'titulo' => $this->getTitulo()
         ];
     }
 }

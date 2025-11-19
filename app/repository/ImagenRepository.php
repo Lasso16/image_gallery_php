@@ -54,4 +54,12 @@ class ImagenRepository extends QueryBuilder
     public function findByUsuario(int $idUsuario) {
         return $this->findBy(["idUsuario"  => $idUsuario]);
     }
+
+    public function deleteById(int $id) {
+        return $this->borrar(["id" => $id]);
+    }
+
+    public function edit(Imagen $imagen) {
+        $this->update($imagen); 
+    }
 }
