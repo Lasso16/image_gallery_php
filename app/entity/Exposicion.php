@@ -40,7 +40,7 @@ class Exposicion implements IEntity
      * Summary of usuario
      * @var int
      */
-    private int $usuario;
+    private int $idUsuario;
 
     public function __construct(
         string $nombre = "",
@@ -48,14 +48,14 @@ class Exposicion implements IEntity
         string $fechaInicio = "",
         string $fechaFin = "",
         bool $activa = false,
-        int $usuario = 0
+        int $idUsuario = 0
     ) {
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->fechaInicio = $fechaInicio;
         $this->fechaFin = $fechaFin;
         $this->activa = $activa;
-        $this->usuario = $usuario;
+        $this->idUsuario = $idUsuario;
     }
 
     public function getId(): ?int
@@ -87,9 +87,9 @@ class Exposicion implements IEntity
         return $this->activa;
     }
 
-    public function getUsuario(): int
+    public function getidUsuario(): int
     {
-        return $this->usuario;
+        return $this->idUsuario;
     }
 
     public function setNombre(string $nombre): void
@@ -117,9 +117,9 @@ class Exposicion implements IEntity
         $this->activa = $activa;
     }
 
-    public function setUsuario(int $usuario): void
+    public function setUsuario(int $idUsuario): void
     {
-        $this->usuario = $usuario;
+        $this->idUsuario = $idUsuario;
     }
 
     public function toArray(): array
@@ -131,7 +131,7 @@ class Exposicion implements IEntity
             'fechaInicio' => $this->fechaInicio,
             'fechaFin' => $this->fechaFin,
             'activa' => $this->activa ? 1 : 0,
-            'usuario' => $this->usuario
+            'idUsuario' => $this->idUsuario
         ];
     }
 }

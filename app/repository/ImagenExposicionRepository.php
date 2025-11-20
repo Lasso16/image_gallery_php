@@ -11,7 +11,7 @@ class ImagenExposicionRepository extends QueryBuilder
         string $table = 'imagen_exposicion',
         string $classEntity = ImagenExposicion::class
     ) {
-        parent::__construct($table, $classEntity);
+        parent::__construct($table, ImagenExposicion::class);
     }
 
     public function add(int $idImagen, int $idExposicion): void

@@ -23,6 +23,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th>Imagenes</th>
                 <th>Inicio</th>
                 <th>Fin</th>
                 <th>Activa</th>
@@ -34,10 +35,21 @@
                     <td colspan="5" class="text-center">No hay exposiciones</td>
                 </tr>
             <?php else: ?>
-                <?php foreach ($exposiciones as $expo): ?>
+                <?php 
+                    /**@var ImagenExposicion  $imgExpuestas*/
+                    foreach ($exposiciones as $expo): ?>
                     <tr>
-                        <td><?= htmlspecialchars($expo->getNombre()) ?></td>
+                        <th><?= htmlspecialchars($expo->getNombre()) ?></th>
                         <td><?= htmlspecialchars($expo->getDescripcion()) ?></td>
+                        <td>
+                            <ol>
+                                <?php foreach ($imgExpuestas as $img): ?>
+                                    <?php if($img->getIdExposicion() === $expo->getId()) : ?>
+                                        <li><a href="/galeria/<?= $img->getIdImagen()?>"><?= $imagenRepository->find($img->getIdImagen())?></a></li>
+                                    <?php endif;?>
+                                <?php endforeach; ?>
+                            </ol>
+                        </td>
                         <td><?= htmlspecialchars($expo->getFechaInicio()) ?></td>
                         <td><?= htmlspecialchars($expo->getFechaFin()) ?></td>
                         <td><?= $expo->isActiva() ? '<span class="label label-success">Activa</span>' : '<span class="label label-default">Inactiva</span>' ?></td>

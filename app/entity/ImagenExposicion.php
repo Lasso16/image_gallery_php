@@ -7,7 +7,7 @@ class ImagenExposicion implements IEntity
     private int $id_imagen;
     private int $id_exposicion;
 
-    public function __construct(int $idImagen, int $idExposicion)
+    public function __construct(int $idImagen = 0, int $idExposicion = 0)
     {
         $this->id_imagen = $idImagen;
         $this->id_exposicion = $idExposicion;

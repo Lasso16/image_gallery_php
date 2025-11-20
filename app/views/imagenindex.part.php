@@ -4,6 +4,7 @@
                 <?php
                     /** @var \dwes\app\entity\Imagen[]|null $imagenGaleria */
                     shuffle($imagenGaleria);
+                    $imagenGaleria = array_slice($imagenGaleria, 0, 12);
                     foreach ($imagenGaleria as $i): ?>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="sol">

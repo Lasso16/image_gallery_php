@@ -4,27 +4,37 @@ namespace dwes\app\controllers;
 
 use dwes\core\App;
 use dwes\core\Response;
-use dwes\app\repository\ExposicionRepository;
 use dwes\app\entity\Exposicion;
 use dwes\app\exceptions\QueryException;
 use dwes\core\helpers\FlashMessage;
 use dwes\app\exceptions\AppException;
 use dwes\app\exceptions\ValidationException;
+use dwes\app\repository\ExposicionRepository;
+use dwes\app\repository\ImagenExposicionRepository;
+use dwes\app\repository\ImagenRepository;
 
 class ExposicionesController
 {
     public function index()
     {
-        $repo = App::getRepository(ExposicionRepository::class);
+        $expoRepository = App::getRepository(ExposicionRepository::class);
+        $imagenExpoRepository = App::getRepository(ImagenExposicionRepository::class);
+    
+
+        $imagenRepository = App::getRepository(ImagenRepository::class);
+        
         $exposiciones = [];
+        $imgExpuestas = [];
         try {
-            $exposiciones = $repo->findAll();
+            $exposiciones = $expoRepository->findAll();
+            $imgExpuestas = $imagenExpoRepository->findAll();
+    
         } catch (QueryException $e) {
             FlashMessage::set('errores', [$e->getMessage()]);
         }
         $errores = FlashMessage::get('errores', []);
         $mensaje = FlashMessage::get('mensaje', '');
-        Response::renderView('exposiciones', 'layout', compact('exposiciones', 'errores', 'mensaje'));
+        Response::renderView('exposiciones', 'layout', compact('exposiciones', 'errores', 'mensaje', 'imgExpuestas', 'imagenRepository'));
     }
     public function crear()
     {
@@ -89,9 +99,9 @@ class ExposicionesController
                 (bool)$activa,
                 $usuarioId
             );
-            /** @var ExposicionRepository $repo */
-            $repo = App::getRepository(ExposicionRepository::class);
-            $repo->guarda($exposicion);
+            /** @var ExposicionRepository $expoRepository */
+            $expoRepository = App::getRepository(ExposicionRepository::class);
+            $expoRepository->guarda($exposicion);
 
             FlashMessage::set('mensaje', 'Exposición creada correctamente');
             FlashMessage::unset('nombre');

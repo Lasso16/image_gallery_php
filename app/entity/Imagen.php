@@ -217,7 +217,7 @@ class Imagen implements IEntity
 
     function __tostring()
     {
-        return $this->descripcion;
+        return $this->titulo;
     }
 
 
