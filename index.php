@@ -3,7 +3,6 @@
 use dwes\app\exceptions\AppException;
 use dwes\core\App;
 use dwes\core\Request;
-use dwes\app\exceptions\NotFoundException;
 
 try {
     require_once 'core/bootstrap.php';
@@ -11,3 +10,4 @@ try {
 } catch (AppException $appException) {
     $appException->handleError();
 }
+
