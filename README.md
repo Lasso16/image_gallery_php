@@ -1,109 +1,111 @@
-# Proyecto DWES Local
+# DWES Local Project
 
-Plataforma web desarrollada en PHP para la gestión de:
-- Galería de imágenes (visualizaciones, likes, descargas)
-- Exposiciones (selección de imágenes para mostrar en eventos/colecciones)
-- Asociados / partners
-- Registro y autenticación de usuarios con roles y control de acceso
+Web platform developed in PHP for managing:
+* **Image Gallery** (views, likes, downloads)
+* **Exhibitions** (selection of images for events/collections)
+* **Associates / Partners**
+* **User Registration and Authentication** with roles and access control
 
-Incluye un enrutador propio, sistema de plantillas con vistas PHP, capa de repositorios sobre PDO, gestión de logs con Monolog, control de sesiones y utilidades auxiliares.
+Includes a custom router, template system with PHP views, repository layer over PDO, log management with Monolog, session control, and auxiliary utilities.
 
-## Índice
-1. Descripción General
-2. Características Principales
-3. Arquitectura y Flujo de Petición
-4. Estructura de Directorios
-5. Modelo de Datos y Entidades
-6. Seguridad y Sistema de Roles
-7. Enrutamiento
-8. Controladores
-9. Repositorios y Acceso a Datos
-10. Vistas y Renderizado
+## Index
+1. General Description
+2. Main Features
+3. Architecture and Request Flow
+4. Directory Structure
+5. Data Model and Entities
+6. Security and Role System
+7. Routing
+8. Controllers
+9. Repositories and Data Access
+10. Views and Rendering
 11. Logs
-12. Configuración
-13. Instalación y Puesta en Marcha
-14. Ejemplos de Uso
-15. Manejo de Errores y Excepciones
-16. Utilidades Disponibles
-17. Extender el Proyecto
-18. Script SQL Inicial
-19. Requisitos
-20. Licencia
-21. Próximos Pasos Sugeridos
+12. Configuration
+13. Installation and Setup
+14. Usage Examples
+15. Error and Exception Handling
+16. Available Utilities
+17. Extending the Project
+18. Initial SQL Script
+19. Requirements
+20. License
+21. Suggested Next Steps
 
 ---
-## 1. Descripción General
-El proyecto implementa un mini-framework educativo para organizar un sitio de galería y exposiciones con control de acceso basado en roles. Se evita el uso de frameworks grandes (Laravel / Symfony) para mostrar conceptos fundamentales: routing, contenedor de servicios, repositorios, entidades, renderizado de vistas y seguridad.
 
-## 2. Características Principales
-- Enrutador con soporte para parámetros dinámicos `:id` y control de roles.
-- Contenedor de dependencias (`App`) y carga de configuración centralizada.
-- Repositorios para acceso a datos y operaciones CRUD básicas.
-- Sistema de vistas con layout y contenido principal (renderizado con `Response::renderView`).
-- Autenticación de usuarios y roles jerárquicos (`ROLE_ADMIN > ROLE_USER > ROLE_ANONYMOUS`).
-- Logging mediante Monolog envuelto por clase utilitaria `MyLog`.
-- Gestión de sesiones y usuario actual enlazado al contenedor.
-- Patrón Active Record simplificado para entidades (mapeo a arrays para inserts/updates).
+## 1. General Description
+The project implements an educational mini-framework to organize a gallery and exhibition site with role-based access control. It avoids using large frameworks (Laravel / Symfony) to demonstrate fundamental concepts: routing, service container, repositories, entities, view rendering, and security.
 
-## 3. Arquitectura y Flujo de Petición
-1. El usuario accede vía navegador a una URL.
-2. `index.php` carga `core/bootstrap.php`.
-3. `bootstrap.php`:
-   - Inicia sesión (`session_start`).
-   - Carga autoload de Composer.
-   - Carga configuración (`app/config.php`) y la vincula al contenedor (`App::bind`).
-   - Construye el router cargando `app/routes.php`.
-   - Configura el logger.
-   - Resuelve el usuario autenticado (si existe en sesión) y lo vincula (`appUser`).
-4. El enrutador (`Router::direct`) compara la URI con las rutas registradas y verifica roles.
-5. Si la ruta requiere autenticación y no cumple, lanza `AuthenticationException` o redirige a `login`.
-6. Se instancia el controlador y se ejecuta la acción.
-7. La acción invoca repositorios / lógica y finalmente renderiza vistas usando `Response::renderView` (inyecta datos y compone layout + vista).
+## 2. Main Features
+* Router with support for dynamic parameters (`:id`) and role control.
+* Dependency container (`App`) and centralized configuration loading.
+* Repositories for data access and basic CRUD operations.
+* View system with layout and main content (rendered with `Response::renderView`).
+* User authentication and hierarchical roles (`ROLE_ADMIN > ROLE_USER > ROLE_ANONYMOUS`).
+* Logging via Monolog wrapped by the `MyLog` utility class.
+* Session management and current user linked to the container.
+* Simplified Active Record pattern for entities (mapping to arrays for inserts/updates).
 
-## 4. Estructura de Directorios (Resumen)
-```
+## 3. Architecture and Request Flow
+1. The user accesses a URL via the browser.
+2. `index.php` loads `core/bootstrap.php`.
+3. **`bootstrap.php`**:
+   * Starts the session (`session_start`).
+   * Loads Composer autoload.
+   * Loads configuration (`app/config.php`) and binds it to the container (`App::bind`).
+   * Builds the router by loading `app/routes.php`.
+   * Configures the logger.
+   * Resolves the authenticated user (if exists in session) and binds them (`appUser`).
+4. The router (`Router::direct`) compares the URI with registered routes and verifies roles.
+5. If the route requires authentication and is not met, it throws an `AuthenticationException` or redirects to `login`.
+6. The controller is instantiated and the action is executed.
+7. The action invokes repositories / logic and finally renders views using `Response::renderView` (injects data and composes layout + view).
+
+## 4. Directory Structure (Summary)
+```text
 app/
-  config.php              Configuración principal
-  routes.php              Definición de rutas
-  controllers/            Lógica de acciones
-  entity/                 Entidades del dominio
-  exceptions/             Excepciones personalizadas
-  repository/             Repositorios (DAO)
-  utils/                  Utilidades (captcha, logs, etc.)
-  views/                  Vistas y layouts
+  config.php              Main configuration
+  routes.php              Route definitions
+  controllers/            Action logic
+  entity/                 Domain entities
+  exceptions/             Custom exceptions
+  repository/             Repositories (DAO)
+  utils/                  Utilities (captcha, logs, etc.)
+  views/                  Views and layouts
 core/
-  App.php                 Contenedor / service locator
-  bootstrap.php           Inicialización del entorno
-  Router.php              Enrutamiento y dispatch
-  Request.php             Utilidades para URI y método
-  Response.php            Renderizado de vistas
-  Security.php            Roles y cifrado
-  database/               Conexión y QueryBuilder
-public/                   Recursos estáticos (CSS, JS, imágenes)
-logs/                     Archivos de log
-vendor/                   Dependencias Composer (Monolog)
+  App.php                 Container / service locator
+  bootstrap.php           Environment initialization
+  Router.php              Routing and dispatch
+  Request.php             URI and method utilities
+  Response.php            View rendering
+  Security.php            Roles and encryption
+  database/               Connection and QueryBuilder
+public/                   Static assets (CSS, JS, images)
+logs/                     Log files
+vendor/                   Composer dependencies (Monolog)
 ```
 
-## 5. Modelo de Datos y Entidades
-Tablas (ver `cursophp.sql`):
-- `usuarios`: credenciales y rol.
-- `imagenes`: metadatos de imágenes (visualizaciones, likes, descargas, categoría, usuario autor).
-- `categorias`: clasificación de imágenes.
-- `asociados`: partners asociados al proyecto.
-- `exposiciones`: eventos o colecciones creadas por usuarios.
-- `imagen_exposicion`: tabla puente N:M entre imágenes y exposiciones.
 
-Entidad ejemplo (`Usuario`):
+## 5. Data Model and Entities
+Tables (see `cursophp.sql`):
+* `usuarios`: credentials and role.
+* `imagenes`: image metadata (views, likes, downloads, category, author user).
+* `categorias`: image classification.
+* `asociados`: partners associated with the project.
+* `exposiciones`: events or collections created by users.
+* `imagen_exposicion`: N:M bridge table between images and exhibitions.
+
+Entity example (`Usuario`):
 ```php
 class Usuario implements IEntity {
   private $id; private string $username; private string $password; private string $role;
   public function toArray(): array { return ['id'=>$this->id,'username'=>$this->username,'role'=>$this->role,'password'=>$this->password]; }
 }
 ```
-Las entidades exponen `toArray()` para construcción de sentencias parametrizadas en `QueryBuilder::save` y `QueryBuilder::update`.
+Entities expose `toArray()` for building parameterized statements in `QueryBuilder::save` and `QueryBuilder::update`.
 
-## 6. Seguridad y Sistema de Roles
-Definición en `app/config.php`:
+## 6. Security and Role System
+Definition in `app/config.php`:
 ```php
 'roles' => [
   'ROLE_ADMIN' => 3,
@@ -111,90 +113,89 @@ Definición en `app/config.php`:
   'ROLE_ANONYMOUS' => 1
 ]
 ```
-`Security::isUserGranted($role)` compara los valores jerárquicos. Acciones que requieren rol se definen en cada ruta. Cifrado de contraseñas: `password_hash` (BCRYPT) y verificación con `password_verify`.
 
-## 7. Enrutamiento
-Registro en `app/routes.php` mediante:
+`Security::isUserGranted($role)` compares hierarchical values. Actions requiring a role are defined in each route. Password encryption: `password_hash` (BCRYPT) and verification with `password_verify`.
+
+## 7. Routing
+Registration in `app/routes.php` via:
 ```php
 $router->get('galeria/:id', 'GaleriaController@show', 'ROLE_USER');
 ```
-Los parámetros dinámicos usan sintaxis `:nombre` y se transforman en grupos con nombre (`(?<nombre>[^/]+)`).
-Flujo interno:
-- Preparación de la regla: `prepareRoute()`.
-- Extracción de parámetros: `getParametersRoute()`.
-- Resolución de controlador: nombre de clase + método separados por `@`.
-- Verificación de rol antes de ejecutar.
 
-## 8. Controladores (Listado Breve)
-- `PagesController`: páginas públicas (`index`, `about`, `blog`).
-- `AuthController`: login, registro, logout.
-- `GaleriaController`: CRUD/visualización de imágenes.
-- `ExposicionesController`: creación y listado de exposiciones.
-- `ImagenExposicionController`: asociación de imágenes a exposiciones.
-- `AsociadosController`: gestión de partners.
-- `ContactoController`: formulario de contacto.
+Dynamic parameters use the `:name` syntax and are transformed into named groups (`(?<name>[^/]+)`).
+Internal flow:
+* Route preparation: `prepareRoute()`.
+* Parameter extraction: `getParametersRoute()`.
+* Controller resolution: class name + method separated by `@`.
+* Role verification before execution.
 
-## 9. Repositorios y Acceso a Datos
-Cada repositorio extiende (directa o indirectamente) `QueryBuilder` proporcionando tabla y entidad. Funciones claves:
-- `findAll()`, `find(id)`, `findBy(filters)`, `findOneBy(filters)`.
-- `save(IEntity $e)` inserta dinámicamente.
-- `update(IEntity $e)` genera asignaciones con `getUpdates`.
-- `executeTransaction(callable)` permite operaciones atómicas.
+## 8. Controllers (Brief List)
+* `PagesController`: public pages (`index`, `about`, `blog`).
+* `AuthController`: login, registration, logout.
+* `GaleriaController`: CRUD/image visualization.
+* `ExposicionesController`: creation and listing of exhibitions.
+* `ImagenExposicionController`: associating images with exhibitions.
+* `AsociadosController`: partner management.
+* `ContactoController`: contact form.
 
-Uso típico:
+## 9. Repositories and Data Access
+Each repository extends (directly or indirectly) `QueryBuilder`, providing table and entity context. Key functions:
+* `findAll()`, `find(id)`, `findBy(filters)`, `findOneBy(filters)`.
+* `save(IEntity $e)` inserts dynamically.
+* `update(IEntity $e)` generates assignments with `getUpdates`.
+* `executeTransaction(callable)` allows for atomic operations.
+
+Typical usage:
 ```php
 $repo = App::getRepository(ImagenRepository::class);
 $imagenes = $repo->findAll();
 $imagen = $repo->find(15);
 ```
 
-## 10. Vistas y Renderizado
+
+## 10. Views and Rendering
 `Response::renderView($name, $layout, $data)`:
-- Extrae `$data` en variables.
-- Captura contenido de `views/<name>.view.php` en buffer.
-- Incrusta dentro del layout definido (`layout.view.php` o variantes con footer).
-Se pueden crear partials en `views/*.part.php` reutilizables.
+* Extracts `$data` into variables.
+* Captures content from `views/<name>.view.php` in a buffer.
+* Embeds it within the defined layout (`layout.view.php` or variations with footer).
+Reusable partials can be created in `views/*.part.php`.
 
 ## 11. Logs
-Configuración en `config.php` (`curso.log`, nivel `WARNING`).
-`MyLog::load(ruta, nivel)` inicializa Monolog con handlers adecuados. El logger se guarda como servicio `logger` en el contenedor y puede usarse:
+Configuration in `config.php` (`curso.log`, level `WARNING`).
+`MyLog::load(path, level)` initializes Monolog with suitable handlers. The logger is stored as the `logger` service in the container and can be used as follows:
 ```php
-App::get('logger')->warning('Mensaje de prueba');
+App::get('logger')->warning('Test message');
 ```
 
-## 12. Configuración
-`app/config.php` centraliza:
-- Datos de conexión PDO (`name`, `username`, `password`).
-- Archivo de rutas.
-- Namespace base del proyecto.
-- Roles y niveles.
-- Nivel de logs.
-Cambiar credenciales de BD y nivel de logs según entorno (desarrollo / producción).
 
-## 13. Instalación y Puesta en Marcha
-Requisitos previos: XAMPP / LAMP con MySQL y PHP >= 8.1 (recomendado 8.2).
+## 12. Configuration
+`app/config.php` centralizes:
+* PDO connection data (`name`, `username`, `password`).
+* Routes file.
+* Project base namespace.
+* Roles and levels.
+* Log level.
+Change DB credentials and log level according to the environment (development / production).
 
-Pasos:
-```bash
-# 1. Clonar o copiar el proyecto en htdocs (XAMPP)
-# 2. Importar 'cursophp.sql' en phpMyAdmin creando la BD 'cursophp'
-# 3. Crear usuario MySQL 'usercurso' con password 'php' y privilegios sobre 'cursophp'
-# 4. Ajustar si es necesario credenciales en app/config.php
-# 5. Instalar dependencias (si no están): composer install
-# 6. Acceder en navegador: http://localhost/proyectos/dwes.local/
-```
-Si Composer no está ejecutado, correr:
-```bash
-composer install
-```
+## 13. Installation and Setup
+Prerequisites: XAMPP / LAMP with MySQL and PHP >= 8.1 (8.2 recommended).
 
-## 14. Ejemplos de Uso
-Agregar nueva ruta protegida:
+Steps:
+1. Clone or copy the project into `htdocs` (XAMPP).
+2. Import `cursophp.sql` in phpMyAdmin, creating the `cursophp` database.
+3. Create MySQL user `usercurso` with password `php` and privileges over `cursophp`.
+4. Adjust credentials in `app/config.php` if necessary.
+5. Install dependencies (if not present): `composer install`.
+6. Access via browser: `http://localhost/proyectos/dwes.local/`.
+
+## 14. Usage Examples
+Add a new protected route:
 ```php
 // app/routes.php
 $router->get('admin/panel', 'AdminController@index', 'ROLE_ADMIN');
 ```
-Nuevo controlador:
+
+New controller:
 ```php
 namespace dwes\app\controllers;
 use dwes\core\Response;
@@ -202,55 +203,58 @@ class AdminController {
   public function index() { Response::renderView('admin-panel', 'layout', ['title'=>'Panel']); }
 }
 ```
-Guardar entidad:
+
+Save entity:
 ```php
 $usuario = new Usuario();
-$usuario->setUsername('nuevo');
-$usuario->setPassword(Security::encrypt('secreto'));
+$usuario->setUsername('new');
+$usuario->setPassword(Security::encrypt('secret'));
 $usuario->setRole('ROLE_USER');
 App::getRepository(UsuarioRepository::class)->save($usuario);
 ```
-Verificación de rol:
+
+Role verification:
 ```php
-if (!Security::isUserGranted('ROLE_ADMIN')) { throw new AuthenticationException('Solo admin'); }
+if (!Security::isUserGranted('ROLE_ADMIN')) { throw new AuthenticationException('Admin only'); }
 ```
 
-## 15. Manejo de Errores y Excepciones
-Excepciones personalizadas en `app/exceptions/`:
-- `AppException`: base genérica.
-- `AuthenticationException`: acceso no autorizado.
-- `NotFoundException`: recurso o ruta inexistente.
-- `QueryException`: errores de ejecución SQL.
-- `ValidationException`, `FileException`, etc. para casos concretos.
-Buenas prácticas: capturar excepciones en controladores y renderizar `error.view.php` con mensaje claro.
 
-## 16. Utilidades Disponibles
-- `Utils::extraeElementosAleatorios($lista, $cantidad)` para muestras aleatorias.
-- `Utils::esOpcionMenuActiva($opcion)` marca navegación activa.
-- `captcha.php`: generación de desafío visual (según implementación local).
-- `File.php`: operaciones de subida / validación (consultar archivo para detalles).
-- `MyLog`: envoltorio simplificado de Monolog.
+## 15. Error and Exception Handling
+Custom exceptions in `app/exceptions/`:
+* `AppException`: generic base.
+* `AuthenticationException`: unauthorized access.
+* `NotFoundException`: non-existent resource or route.
+* `QueryException`: SQL execution errors.
+* `ValidationException`, `FileException`, etc., for specific cases.
+Best practice: catch exceptions in controllers and render `error.view.php` with a clear message.
 
-## 17. Extender el Proyecto
-- Nuevos roles: añadir clave en `security.roles` con valor jerárquico.
-- Nuevas entidades: crear clase en `app/entity`, repositorio en `app/repository` extendiendo `QueryBuilder` y actualizar script SQL.
-- Middleware: podría añadirse lógica antes de `callAction` en `Router`.
-- Cache: añadir servicio en `bootstrap.php` y vincularlo al contenedor.
+## 16. Available Utilities
+* `Utils::extraeElementosAleatorios($lista, $cantidad)` for random samples.
+* `Utils::esOpcionMenuActiva($opcion)` marks active navigation.
+* `captcha.php`: visual challenge generation (according to local implementation).
+* `File.php`: upload / validation operations (check file for details).
+* `MyLog`: simplified Monolog wrapper.
 
-## 18. Script SQL Inicial
-El archivo `cursophp.sql` incluye:
-- Creación de tablas.
-- Inserts de ejemplo (usuarios, imágenes, categorías, asociados).
-- Índices y claves foráneas con ON DELETE CASCADE para limpieza automática.
-Importar para disponer de datos de prueba inmediatamente.
+## 17. Extending the Project
+* New roles: add a key in `security.roles` with a hierarchical value.
+* New entities: create a class in `app/entity`, a repository in `app/repository` extending `QueryBuilder`, and update the SQL script.
+* Middleware: logic could be added before `callAction` in the `Router`.
+* Cache: add a service in `bootstrap.php` and bind it to the container.
 
-## 19. Requisitos
-- PHP: >= 8.1 (ideal 8.2 por compatibilidad con servidor mostrado).
-- Extensión PDO MySQL habilitada.
-- Composer para gestionar Monolog.
-- Servidor HTTP (Apache en XAMPP o similar).
+## 18. Initial SQL Script
+The `cursophp.sql` file includes:
+* Table creation.
+* Example inserts (users, images, categories, associates).
+* Indexes and foreign keys with `ON DELETE CASCADE` for automatic cleanup.
+Import this to have test data available immediately.
 
-Dependencias Composer:
+## 19. Requirements
+* PHP: >= 8.1 (8.2 is ideal for compatibility with the server shown).
+* PDO MySQL extension enabled.
+* Composer to manage Monolog.
+* HTTP Server (Apache in XAMPP or similar).
+
+Composer dependencies:
 ```json
 {
   "require": { "monolog/monolog": "^3.9" },
@@ -258,21 +262,22 @@ Dependencias Composer:
 }
 ```
 
-## 20. Licencia
-No se ha especificado licencia. Añadir sección de licencia (ej. MIT) si se distribuirá públicamente.
 
-## 21. Próximos Pasos Sugeridos
-- Añadir pruebas unitarias (PHPUnit) para repositorios y controladores críticos.
-- Implementar validaciones centralizadas y sanitización de entrada.
-- Añadir CSRF tokens para formularios POST.
-- Internacionalización (i18n) con archivos de idioma.
-- Refactorizar vistas a un motor de plantillas (Twig) si se requiere más flexibilidad.
-- Mejorar paginación y filtros en listados grandes (imágenes, exposiciones).
+## 20. License
+No license has been specified. Add a license section (e.g., MIT) if it will be publicly distributed.
 
----
-## Preguntas / Soporte
-Para dudas o mejoras, documentar issues internamente o preparar un archivo CONTRIBUTING.md si se abre el desarrollo.
+## 21. Suggested Next Steps
+* Add unit tests (PHPUnit) for repositories and critical controllers.
+* Implement centralized validations and input sanitization.
+* Add CSRF tokens for POST forms.
+* Internationalization (i18n) with language files.
+* Refactor views to a template engine (Twig) if more flexibility is required.
+* Improve pagination and filters for large listings (images, exhibitions).
 
 ---
-## Nota
-Este README es una guía completa pensada para desarrolladores que deseen entender, ejecutar y extender el proyecto rápidamente.
+## Questions / Support
+For doubts or improvements, document issues internally or prepare a `CONTRIBUTING.md` file if development is opened.
+
+---
+## Note
+This README is a complete guide intended for developers who wish to understand, run, and extend the project quickly.
